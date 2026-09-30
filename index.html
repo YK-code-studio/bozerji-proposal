@@ -199,7 +199,7 @@ ul.ticks li::before{content:"";position:absolute;inset-inline-start:0;top:.75em;
 .price-card header{padding:24px 26px 10px}
 .price-card header p{color:var(--muted);margin:0}
 .lines{list-style:none;margin:0;padding:0 26px}
-.lines li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.lines li{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
 .lines li:last-child{border-bottom:0}
 .lines li div b{display:block;font-weight:600}
 .lines li div small{color:var(--muted);font-size:14px}
@@ -283,6 +283,114 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .tl-row.tl.head{display:grid}
   .bar{padding:0 6px;font-size:11px}
 }
+
+/* ---------- interactive demo ---------- */
+#demo{background:var(--asphalt);color:#fff}
+#demo .sec-head .eyebrow{color:var(--hazard)}
+#demo .sec-head p{color:#AEB5BF}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.demo-note{border:1px dashed rgba(246,194,28,.55);border-radius:12px;padding:12px 16px;margin-bottom:22px;display:grid;gap:2px}
+.demo-note b{color:var(--hazard);font-weight:600}
+.demo-note span{color:#AEB5BF;font-size:14.5px}
+.demo-top{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+.stages{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;flex:1;counter-reset:stg}
+.stages li{counter-increment:stg;font-size:12.5px;color:#8C94A0;background:var(--asphalt-2);border-radius:8px;padding:8px 6px 7px;text-align:center;line-height:1.35;border-top:3px solid #2C323A}
+.stages li::before{content:counter(stg);display:block;font-family:var(--mono);font-size:13px}
+.stages li.done{color:#C9CED6;border-top-color:var(--meter)}
+.stages li.now{color:#fff;border-top-color:var(--orange);background:#2A2118}
+.demo-reset{font:600 14px var(--body);background:transparent;color:#fff;border:1.5px solid #4A525C;border-radius:10px;padding:9px 14px;cursor:pointer;white-space:nowrap}
+.demo-reset:hover{border-color:#fff}
+.demo-tabs{display:none}
+.demo-grid{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:16px;align-items:start}
+.dpanel{background:#F4F5F2;color:var(--ink);border-radius:22px;overflow:hidden;border:6px solid #0C0E11;min-width:0}
+.dpanel.admin{border-radius:14px;border-width:2px;border-color:#3A424C;background:#fff}
+.dpanel header{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#0C0E11;color:#DDE1E6;padding:8px 14px;font-size:13.5px;font-weight:600}
+.dpanel.admin header{background:#232830}
+.turn{font-style:normal;font-size:11.5px;background:var(--orange);color:#fff;border-radius:999px;padding:1px 9px;visibility:hidden}
+.dpanel.active-turn{box-shadow:0 0 0 3px var(--orange)}
+.dpanel.active-turn .turn{visibility:visible}
+.dbody{padding:14px;min-height:380px;display:grid;gap:12px;align-content:start;font-size:14.5px;line-height:1.7}
+.dbody h4{font-family:var(--display);font-size:16px;margin:0}
+.dbody p{margin:0;color:#4A5059}
+.dbody .muted{color:var(--muted);font-size:13.5px}
+.dbody .empty{color:var(--muted);text-align:center;padding:40px 8px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.seg label{display:block;border:1.5px solid var(--line);border-radius:10px;padding:8px;text-align:center;cursor:pointer;background:#fff;font-weight:600}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg input:checked+span{color:var(--orange-deep)}
+.seg label:has(input:checked){border-color:var(--orange);background:#FFF3EA}
+.seg label:has(input:focus-visible){outline:3px solid var(--orange);outline-offset:2px}
+.fld{display:grid;gap:4px}
+.fld>span{font-size:13px;font-weight:600;color:#343A42}
+.fld input[type=number]{font:500 16px var(--mono);direction:ltr;text-align:center;border:1.5px solid var(--line);border-radius:10px;padding:8px;width:100%;background:#fff}
+.fld input[type=number]:focus{border-color:var(--orange);outline:none}
+.fld input[aria-invalid=true]{border-color:var(--danger)}
+.err{color:var(--danger);font-size:12.5px;min-height:1em}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font:500 12.5px var(--body);border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;cursor:pointer}
+.chips button[aria-pressed=true]{border-color:var(--orange);color:var(--orange-deep);background:#FFF3EA}
+.dmap{width:100%;height:auto;display:block;border-radius:12px;background:#E7ECE4;border:1px solid var(--line)}
+.dmap.pick{cursor:crosshair}
+.dsum{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;gap:3px;font-size:13.5px}
+.dsum div{display:flex;justify-content:space-between;gap:10px}
+.dsum b{font-weight:600}
+.dsum .n{font-family:var(--mono);direction:ltr}
+.dsum .tot{border-top:1px dashed var(--line);padding-top:6px;margin-top:3px;font-size:14.5px}
+.btn{font:600 14.5px var(--body);background:var(--orange);color:#fff;border:0;border-radius:11px;padding:11px 14px;cursor:pointer;width:100%}
+.btn:hover{background:var(--orange-deep)}
+.btn:disabled{background:#C9CED6;color:#6B727C;cursor:not-allowed}
+.btn.dark{background:var(--asphalt)}
+.dstatus{font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink);background:#fff;border-radius:12px;padding:10px 12px;border-inline-start:5px solid var(--orange)}
+.dstatus.ok{border-color:#1C8A4E}
+.drivers{display:grid;gap:6px}
+.drivers label{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer;background:#fff}
+.drivers label:has(input:checked){border-color:var(--orange);background:#FFF3EA}
+.drivers label.no{opacity:.55;cursor:not-allowed}
+.drivers small{grid-column:2;color:var(--muted);font-size:12.5px}
+.stock{width:100%;border-collapse:collapse;font-size:13px}
+.stock th,.stock td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:start}
+.stock th{font-weight:600;color:#343A42;background:#F4F5F2}
+.stock td.n{font-family:var(--mono);direction:ltr;text-align:end}
+.stock tr.low td{color:var(--danger);font-weight:600}
+.alert{background:#FDF1EF;border-inline-start:4px solid var(--danger);color:#7A2A20;border-radius:8px;padding:8px 10px;font-size:13px}
+.log{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:12.5px;max-height:170px;overflow:auto}
+.log li{display:grid;grid-template-columns:auto 1fr;gap:8px;color:#343A42}
+.log time{font-family:var(--mono);color:var(--muted);direction:ltr}
+.checks{display:grid;gap:6px}
+.checks label{display:flex;gap:8px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer}
+.checks input{margin-top:6px;accent-color:var(--orange);width:17px;height:17px;flex:none}
+.receipt{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.receipt h4{margin-bottom:6px}
+.tag-demo{display:inline-block;font-size:11px;background:#FFF3D6;color:#7A5600;border-radius:999px;padding:0 8px;margin-inline-start:4px;vertical-align:middle}
+@media (max-width:1000px){
+  .demo-top{flex-direction:column;align-items:stretch}
+  .stages{grid-template-columns:repeat(7,minmax(0,1fr))}
+  .stages li{font-size:0;padding:6px 0 4px}
+  .stages li::before{font-size:13px}
+  .demo-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+  .demo-tabs button{position:relative;font:600 14.5px var(--body);background:var(--asphalt-2);color:#C9CED6;border:1.5px solid #3A424C;border-radius:10px;padding:9px 6px;cursor:pointer}
+  .demo-tabs button[aria-selected=true]{background:#fff;color:var(--ink);border-color:#fff}
+  .demo-tabs i{position:absolute;top:6px;inset-inline-end:8px;width:9px;height:9px;border-radius:50%;background:var(--orange);display:none}
+  .demo-tabs button.needs i{display:block}
+  .demo-grid{grid-template-columns:1fr}
+  .demo-grid .dpanel{display:none}
+  .demo-grid[data-view=customer] #panel-customer,.demo-grid[data-view=admin] #panel-admin,.demo-grid[data-view=driver] #panel-driver{display:block}
+  .dpanel{max-width:460px;width:100%;margin:0 auto}
+  .dpanel.active-turn{box-shadow:none}
+}
+.stage-now{display:none;margin:0;color:#DDE1E6;font-size:14px}
+@media (max-width:1000px){.stage-now{display:block}}
+.demo-print{display:none}
+@media print{
+  #demo{background:#fff;color:var(--ink)}
+  #demo .sec-head p{display:none}
+  #demo .sec-head .eyebrow{color:var(--orange-deep)}
+  .demo-live{display:none!important}
+  .demo-print{display:block;font-size:12pt}
+  .demo-print ol{margin:8px 0 0;padding-inline-start:22px}
+  .demo-print li{margin-bottom:6px}
+  .demo-print{color:var(--ink)}
+}
 </style>
 </head>
 <body>
@@ -294,6 +402,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <a href="#summary">الملخص</a>
       <a href="#system">مكونات النظام</a>
       <a href="#flow">دورة الطلب</a>
+      <a href="#demo">جرّب</a>
       <a href="#tech">البنية التقنية</a>
       <a href="#hosting">الاستضافة</a>
       <a href="#timeline">الجدول الزمني</a>
@@ -456,18 +565,18 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <h3>إنشاء الحساب وتسجيل الدخول</h3>
         <ul class="ticks">
           <li>العميل ينشئ حساباً بالاسم والبريد الإلكتروني ورقم الهاتف وكلمة المرور.</li>
+          <li>يستطيع العميل الدخول بالبريد الإلكتروني وكلمة المرور مباشرة بعد التسجيل.</li>
           <li>الدخول بالبريد الإلكتروني وكلمة المرور لجميع الأدوار.</li>
-          <li>تأكيد البريد الإلكتروني برابط آمن يصل إلى البريد، دون إدخال أي رمز.</li>
           <li>استعادة كلمة المرور برابط آمن يصل إلى البريد.</li>
-          <li>رقم الهاتف وسيلة تواصل مع العميل، ولا يُعرض بوصفه رقماً موثّقاً.</li>
+          <li>البريد ورقم الهاتف بيانات تواصل يدخلها العميل، ولا يُعرض أي منهما بوصفه موثّقاً.</li>
           <li>لا يوجد تسجيل عام للسائقين؛ الإدارة تنشئ حساباتهم.</li>
           <li>حسابات الإدارة تُنشأ بصلاحيات محددة لكل دور.</li>
         </ul>
       </div>
       <div class="card">
-        <h3>حماية الروابط والدخول</h3>
+        <h3>حماية الدخول والاستعادة</h3>
         <ul class="ticks">
-          <li>رابط التأكيد ورابط الاستعادة صالحان لمدة 60 دقيقة، ويُستخدم كل منهما مرة واحدة فقط.</li>
+          <li>رابط استعادة كلمة المرور صالح لمدة 60 دقيقة، ويُستخدم مرة واحدة فقط.</li>
           <li>طلب رابط جديد يُبطل الرابط السابق.</li>
           <li>حد لمحاولات الدخول الفاشلة لكل بريد وعنوان IP، مع إيقاف مؤقت بعد تجاوزه.</li>
           <li>حد لطلبات الاستعادة: طلب واحد كل دقيقة لكل بريد، وحد يومي لكل عنوان IP.</li>
@@ -504,7 +613,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <li>تنبيه في لوحة الإدارة عند نزول المخزون المسجّل عن حد محدد لكل خزان.</li>
           <li>سجل أساسي بمن غيّر حالة الطلب أو أسنده أو عدّل الكمية، مع التاريخ والوقت.</li>
           <li>تقارير أساسية للطلبات والكميات والمبالغ النقدية حسب الفترة والسائق.</li>
-          <li>إنشاء الحساب وتسجيل الدخول بالبريد الإلكتروني وكلمة المرور، مع روابط التأكيد والاستعادة.</li>
+          <li>إنشاء الحساب وتسجيل الدخول بالبريد الإلكتروني وكلمة المرور، مع استعادة كلمة المرور برابط بريدي آمن.</li>
           <li>الاختبار الميداني والنشر على المتجرين.</li>
           <li>تدريب عن بُعد بجلستين، مدة كل جلسة ساعتان.</li>
         </ul>
@@ -547,11 +656,69 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div>
 </section>
 
+<!-- ============ DEMO ============ -->
+<section id="demo" aria-labelledby="demo-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">06 · جرّب طريقة العمل</span>
+      <h2 id="demo-title">جرّب طريقة عمل بوزرجي</h2>
+      <p>اتبع طلباً تجريبياً واحداً من العميل إلى الإدارة ثم السائق. كل خطوة تنفذها تظهر فوراً في الواجهات الثلاث.</p>
+    </div>
+
+    <div class="demo-live">
+      <div class="demo-note">
+        <b>محاكاة توضيحية لطريقة العمل؛ الواجهات النهائية تُصمم ضمن التنفيذ.</b>
+        <span>الأسماء والأسعار والموقع والخريطة افتراضية للتجربة. لا تُرسل أي بيانات، ولا تُنشأ حسابات، ولا يُرسل بريد أو إشعار.</span>
+      </div>
+
+      <div class="demo-top">
+        <ol class="stages" id="demo-stages" aria-label="مرحلة الطلب التجريبي">
+          <li>إنشاء الطلب</li><li>المراجعة</li><li>الإسناد</li><li>في الطريق</li><li>الوصول والتحقق</li><li>التعبئة</li><li>التسليم</li>
+        </ol>
+        <p class="stage-now" id="stage-now" aria-hidden="true"></p>
+        <button type="button" class="demo-reset" id="demo-reset">إعادة التجربة</button>
+      </div>
+
+      <div class="demo-tabs" role="tablist" aria-label="الواجهات">
+        <button type="button" role="tab" id="tab-customer" aria-controls="panel-customer" data-tab="customer">العميل<i></i></button>
+        <button type="button" role="tab" id="tab-admin" aria-controls="panel-admin" data-tab="admin">الإدارة<i></i></button>
+        <button type="button" role="tab" id="tab-driver" aria-controls="panel-driver" data-tab="driver">السائق<i></i></button>
+      </div>
+
+      <div class="demo-grid" id="demo-grid" data-view="customer">
+        <article class="dpanel phone" id="panel-customer" data-role="customer" role="tabpanel" aria-labelledby="tab-customer">
+          <header><span>تطبيق العميل</span><em class="turn">دورك الآن</em></header>
+          <div class="dbody" id="body-customer"></div>
+        </article>
+        <article class="dpanel admin" id="panel-admin" data-role="admin" role="tabpanel" aria-labelledby="tab-admin">
+          <header><span>لوحة الإدارة</span><em class="turn">دورك الآن</em></header>
+          <div class="dbody" id="body-admin"></div>
+        </article>
+        <article class="dpanel phone" id="panel-driver" data-role="driver" role="tabpanel" aria-labelledby="tab-driver">
+          <header><span>تطبيق السائق</span><em class="turn">دورك الآن</em></header>
+          <div class="dbody" id="body-driver"></div>
+        </article>
+      </div>
+      <p class="sr-only" id="demo-live" aria-live="polite"></p>
+    </div>
+
+    <div class="demo-print">
+      <p><b>محاكاة توضيحية لطريقة العمل؛ الواجهات النهائية تُصمم ضمن التنفيذ.</b> النسخة الإلكترونية من العرض تتضمن نموذجاً تفاعلياً لهذه الدورة:</p>
+      <ol>
+        <li><b>العميل:</b> يختار نوع الوقود والكمية، ويحدد الموقع بدبوس على الخريطة، ثم يرسل الطلب ويتابع حالته.</li>
+        <li><b>الإدارة:</b> تراجع الطلب ومنطقة الخدمة وتوافق عليه، ثم تسنده يدوياً إلى سائق لديه مخزون كافٍ.</li>
+        <li><b>السائق:</b> يغيّر الحالة إلى «في الطريق» ثم «وصل»، ويؤكد قائمة السلامة، ويدخل الكمية المسلّمة، ويؤكد استلام النقد ويكمل الطلب.</li>
+        <li><b>النتيجة:</b> يظهر الإيصال للعميل، ويُخصم المخزون لدى الإدارة، ويُسجَّل كل إجراء مع وقته.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
 <!-- ============ RULES ============ -->
 <section class="alt" id="rules">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">06 · قواعد التشغيل</span>
+      <span class="eyebrow">07 · قواعد التشغيل</span>
       <h2>قواعد مبنية على واقع المحطة المتنقلة</h2>
       <p>هذه القواعد تجعل النظام مطابقاً لما يحدث فعلاً على الأرض، ويمكن للإدارة تعديل قيمها من لوحة التحكم.</p>
     </div>
@@ -570,7 +737,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <section id="tech">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">07 · البنية التقنية</span>
+      <span class="eyebrow">08 · البنية التقنية</span>
       <h2>كيف تتصل الأجزاء ببعضها</h2>
       <p>خادم مركزي واحد يخدم التطبيق ولوحة التحكم، مع اتصال لحظي لتحديث حالة الطلب وموقع السائق أثناء تنفيذه دون إعادة تحميل.</p>
     </div>
@@ -590,7 +757,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <div class="node"><b>MySQL 8 + Redis</b><span>البيانات والتخزين المؤقت</span></div>
         <div class="node"><b>Firebase FCM</b><span>إشعارات الإسناد وتغيّر حالة الطلب</span></div>
         <div class="node"><b>Google Maps</b><span>عرض الخرائط، دبوس الموقع، المسار الأساسي</span></div>
-        <div class="node"><b>Resend</b><span>رسائل تأكيد البريد واستعادة كلمة المرور</span></div>
+        <div class="node"><b>Resend</b><span>رسائل استعادة كلمة المرور</span></div>
       </div>
     </div>
     <div class="stack" aria-label="التقنيات">
@@ -608,7 +775,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <section class="alt" id="hosting">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">08 · الاستضافة والأمان</span>
+      <span class="eyebrow">09 · الاستضافة والأمان</span>
       <h2>خادم افتراضي مخصص في فرانكفورت</h2>
       <p>نوصي بخادم DigitalOcean في مركز بيانات فرانكفورت (FRA1) لقربه من العراق وانخفاض زمن الاستجابة. الأسعار من صفحة الأسعار الرسمية للمزوّد بتاريخ 30 أيلول 2026.</p>
     </div>
@@ -635,7 +802,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <ul class="ticks">
           <li>تشفير كل الاتصالات عبر HTTPS</li>
           <li>دخول بالبريد وكلمة المرور، ورموز وصول (Tokens) قابلة للإلغاء</li>
-          <li>روابط التأكيد والاستعادة محدودة الصلاحية وتُستخدم مرة واحدة</li>
+          <li>رابط الاستعادة محدود الصلاحية ويُستخدم مرة واحدة</li>
           <li>حد لمحاولات الدخول وطلبات الاستعادة</li>
           <li>صلاحيات منفصلة لكل دور: مدير، مشرف، محاسب، سائق، عميل</li>
           <li>لا يرى السائق إلا الطلبات المُسندة إليه</li>
@@ -653,7 +820,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <section id="timeline">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">09 · الجدول الزمني</span>
+      <span class="eyebrow">10 · الجدول الزمني</span>
       <h2>ثلاثة أشهر ونصف من التوقيع إلى الإطلاق</h2>
       <p>نعرض على الجهة المستفيدة نسخة تجريبية كل أسبوعين لتتابع التقدم وتعطي ملاحظاتها مبكراً.</p>
     </div>
@@ -693,7 +860,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <section class="alt" id="pricing">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">10 · التكلفة</span>
+      <span class="eyebrow">11 · التكلفة</span>
       <h2>كلفة تطوير لمرة واحدة، واشتراك سنوي منفصل</h2>
       <p>جميع المبالغ بالدولار الأمريكي، ويمكن دفعها بما يعادلها بالدينار العراقي حسب سعر الصرف يوم الدفع.</p>
     </div>
@@ -701,10 +868,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="price-card">
         <header><h3>كلفة التطوير — تُدفع مرة واحدة</h3><p>تغطي نطاق نسخة الإطلاق المحدد في القسم 04، وتشمل الاختبار الميداني والنشر على المتجرين وجلستَي تدريب عن بُعد (ساعتان لكل جلسة). أي توسعة لاحقة تُسعَّر بصورة مستقلة.</p></header>
         <ul class="lines">
-          <li><div><b>التحليل وتصميم الواجهات</b><small>تحليل المتطلبات، نحو 45 شاشة، نموذج تفاعلي</small></div><span class="amt">$500</span></li>
-          <li><div><b>تطبيق Flutter بواجهتين</b><small>واجهة العميل + واجهة السائق، Android وiOS</small></div><span class="amt">$1,500</span></li>
-          <li><div><b>الخادم والـAPI</b><small>الحسابات وروابط البريد، الطلبات والإسناد، موقع السائق أثناء الطلب</small></div><span class="amt">$1,100</span></li>
-          <li><div><b>لوحة تحكم الإدارة</b><small>المراجعة والموافقة والإسناد والمتابعة، المخزون اليدوي، التقارير الأساسية</small></div><span class="amt">$900</span></li>
+          <li><div><b>التحليل وتصميم الواجهات</b><small>تحليل المتطلبات، نحو 45 شاشة، نموذج تفاعلي</small></div></li>
+          <li><div><b>تطبيق Flutter بواجهتين</b><small>واجهة العميل + واجهة السائق، Android وiOS</small></div></li>
+          <li><div><b>الخادم والـAPI</b><small>الحسابات واستعادة كلمة المرور، الطلبات والإسناد، موقع السائق أثناء الطلب</small></div></li>
+          <li><div><b>لوحة تحكم الإدارة</b><small>المراجعة والموافقة والإسناد والمتابعة، المخزون اليدوي، التقارير الأساسية</small></div></li>
         </ul>
         <div class="total">
           <div class="meter"><span class="lbl">Total · one-time development</span><div class="val">$4,000<small>USD</small></div></div>
@@ -736,7 +903,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <tr><td>النسخ الاحتياطي اليومي</td><td><span class="pill opt">اختياري · برسوم إضافية</span></td><td>من DigitalOcean بنسبة 30% من سعر الخادم: $14.40 شهرياً ($172.80 سنوياً). النسخ الأسبوعي 20%: $9.60 شهرياً ($115.20 سنوياً). نوصي بتفعيل النسخ اليومي.</td></tr>
           <tr><td>الخادم قبل الإطلاق</td><td><span class="pill out">غير مشمول</span></td><td>تُحتسب كلفة الخادم قبل الإطلاق وفق مدة التشغيل الفعلية على أساس $48 شهرياً، وتتحملها الجهة المستفيدة بعد اعتماد مدة الاختبار. يبدأ الاشتراك السنوي من تاريخ الإطلاق، فلا تُحتسب الفترة نفسها مرتين.</td></tr>
           <tr><td>النطاق (Domain)</td><td><span class="pill out">غير مشمول</span></td><td>يُسجَّل باسم الجهة المستفيدة، وتتحدد كلفته حسب الامتداد وجهة التسجيل. النطاق مطلوب أيضاً لإرسال رسائل البريد.</td></tr>
-          <tr><td>إرسال البريد — Resend</td><td><span class="pill in">$0 ضمن الخطة المجانية</span></td><td>الخطة المجانية تخضع لحدّين معاً: 3,000 رسالة شهرياً و100 رسالة يومياً، وتكفي لرسائل التأكيد والاستعادة في البداية. تجاوز أي من الحدين قد يستلزم الانتقال إلى خطة مدفوعة، حتى لو لم يُستنفد الحد الآخر. أقل خطة مدفوعة (Pro) بسعر $20 شهرياً لـ 50,000 رسالة، وتُحتسب خارج الاشتراك الأساسي. تتطلب الخدمة توثيق النطاق بسجلات DNS.</td></tr>
+          <tr><td>إرسال البريد — Resend</td><td><span class="pill in">$0 ضمن الخطة المجانية</span></td><td>الخطة المجانية تخضع لحدّين معاً: 3,000 رسالة شهرياً و100 رسالة يومياً، وتكفي لرسائل استعادة كلمة المرور في البداية. تجاوز أي من الحدين قد يستلزم الانتقال إلى خطة مدفوعة، حتى لو لم يُستنفد الحد الآخر. أقل خطة مدفوعة (Pro) بسعر $20 شهرياً لـ 50,000 رسالة، وتُحتسب خارج الاشتراك الأساسي. تتطلب الخدمة توثيق النطاق بسجلات DNS.</td></tr>
           <tr><td>شهادة SSL</td><td><span class="pill in">بدون رسوم</span></td><td>شهادة Let's Encrypt المجانية، تُثبَّت وتُجدَّد تلقائياً على الخادم.</td></tr>
           <tr><td>حساب Google Play</td><td><span class="pill in">لا رسوم سنوية</span></td><td>الحساب قائم ورسوم تسجيله تُدفع مرة واحدة فقط.</td></tr>
           <tr><td>خرائط Google</td><td><span class="pill out">الزائد غير مشمول</span></td><td>الاستخدام ضمن الحدود المجانية الشهرية بلا رسوم، والزائد يُحتسب حسب الاستخدام. انظر الجدول أدناه.</td></tr>
@@ -788,7 +955,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <section id="terms">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">11 · شروط الدفع والتسليم</span>
+      <span class="eyebrow">12 · شروط الدفع والتسليم</span>
       <h2>ثلاث دفعات للتطوير مرتبطة بمراحل واضحة</h2>
       <p>هذه الدفعات تخص كلفة التطوير ($4,000) فقط. الاشتراك السنوي بند منفصل.</p>
     </div>
@@ -841,5 +1008,243 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div>
 </footer>
 
+<script>
+(function(){
+  var root=document.getElementById('demo'); if(!root) return;
+  var PRICE={petrol:1000,diesel:800};              // أسعار افتراضية للتجربة (د.ع/لتر)
+  var FUEL={petrol:'بنزين',diesel:'كاز'};
+  var THRESHOLD=100;                                // حد تنبيه المخزون التجريبي (لتر)
+  var DEPOT={x:44,y:168};
+  var PRESETS=[{n:'موقع تجريبي 1',x:236,y:64},{n:'موقع تجريبي 2',x:268,y:150},{n:'موقع تجريبي 3',x:150,y:52}];
+  var DRIVERS={A:{name:'سائق تجريبي (أ)'},B:{name:'سائق تجريبي (ب)'}};
+  var START_STOCK={A:{petrol:350,diesel:280},B:{petrol:120,diesel:460}};
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var S,anim=null;
+
+  function fresh(){
+    return {status:'draft',fuel:'petrol',qty:100,pin:{x:PRESETS[0].x,y:PRESETS[0].y},preset:0,
+      driver:null,pick:'A',stock:JSON.parse(JSON.stringify(START_STOCK)),log:[],
+      checks:[false,false,false,false],delivered:null,cash:false,prog:0,view:'customer'};
+  }
+  function fmt(n){return Number(n).toLocaleString('en-US')}
+  function now(){var d=new Date();return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
+  function log(who,what){S.log.push({t:now(),who:who,what:what})}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+  var STAGE={draft:0,pending:1,approved:2,assigned:3,enroute:3,arrived:4,filling:5,done:7};
+  var STAGE_NAMES=['إنشاء الطلب','المراجعة','الإسناد','في الطريق','الوصول والتحقق','التعبئة','التسليم'];
+  var TURN={draft:'customer',pending:'admin',approved:'admin',assigned:'driver',enroute:'driver',arrived:'driver',filling:'driver',done:null};
+  var ADMIN_STATUS={assigned:'مُسند — بانتظار تحرك السائق',enroute:'السائق في الطريق إلى العميل',arrived:'وصل السائق — التحقق قبل التعبئة',filling:'جارٍ تعبئة الوقود'};
+  var CUST_STATUS={pending:'بانتظار مراجعة الإدارة',approved:'تمت الموافقة — بانتظار إسناد سائق',assigned:'تم إسناد سائق لطلبك',enroute:'السائق في الطريق إليك',arrived:'وصل السائق — التحقق قبل التعبئة',filling:'جارٍ تعبئة الوقود',done:'تم التسليم'};
+
+  // ---------- local illustrative map (SVG, no external calls) ----------
+  function mapSVG(opts){
+    var p=S.pin, pick=opts.pick, showDriver=opts.driver;
+    var route='M'+DEPOT.x+' '+DEPOT.y+' L'+p.x+' '+DEPOT.y+' L'+p.x+' '+p.y;
+    var d=driverPos();
+    var s='<svg class="dmap'+(pick?' pick':'')+'" viewBox="0 0 320 200" role="img" aria-label="خريطة توضيحية تجريبية'+(pick?'. اضغط لتحديد موقع التسليم':'')+'"'+(pick?' data-map="pick"':'')+'>'
+      +'<rect width="320" height="200" fill="#E7ECE4"/>'
+      +'<path d="M-10 118 C60 96 110 140 180 116 S290 92 330 104" fill="none" stroke="#B9D3E6" stroke-width="14"/>'
+      +'<g stroke="#FFFFFF" stroke-width="7" fill="none"><path d="M0 40H320M0 168H320M88 0V200M200 0V200M280 0V200"/></g>'
+      +'<g fill="#D6DDD2"><rect x="100" y="52" width="88" height="44" rx="4"/><rect x="212" y="12" width="58" height="22" rx="4"/><rect x="12" y="52" width="66" height="46" rx="4"/><rect x="212" y="130" width="58" height="28" rx="4"/><rect x="100" y="136" width="88" height="22" rx="4"/></g>'
+      +'<text x="310" y="194" direction="rtl" text-anchor="start" font-size="9" fill="#6B727C">خريطة توضيحية — للتجربة</text>'
+      +'<g><rect x="'+(DEPOT.x-9)+'" y="'+(DEPOT.y-9)+'" width="18" height="18" rx="3" fill="#15181D"/><text x="'+DEPOT.x+'" y="'+(DEPOT.y-13)+'" text-anchor="middle" font-size="9" fill="#15181D">المستودع</text></g>';
+    if(showDriver) s+='<path d="'+route+'" fill="none" stroke="#E8650A" stroke-width="2.5" stroke-dasharray="5 4"/>';
+    s+='<g transform="translate('+p.x+' '+p.y+')"><path d="M0 0 C-7 -9 -9 -13 -9 -17 A9 9 0 1 1 9 -17 C9 -13 7 -9 0 0Z" fill="#C23A2B"/><circle cy="-17" r="3.4" fill="#fff"/></g>';
+    if(showDriver) s+='<g class="drv" transform="translate('+d.x+' '+d.y+')"><circle r="8" fill="#E8650A" stroke="#fff" stroke-width="2.5"/><text y="3.5" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">S</text></g>';
+    return s+'</svg>';
+  }
+  function driverPos(){
+    var p=S.pin, a=Math.abs(p.x-DEPOT.x), b=Math.abs(DEPOT.y-p.y), L=a+b||1, t=S.prog*L;
+    if(t<=a) return {x:DEPOT.x+(p.x>DEPOT.x?1:-1)*t,y:DEPOT.y};
+    return {x:p.x,y:DEPOT.y-(DEPOT.y>p.y?1:-1)*(t-a)};
+  }
+  function moveMarkers(){
+    var d=driverPos();
+    root.querySelectorAll('.drv').forEach(function(g){g.setAttribute('transform','translate('+d.x+' '+d.y+')')});
+  }
+  function animateTo(target,ms){
+    if(anim) cancelAnimationFrame(anim);
+    if(reduce){S.prog=target;moveMarkers();return}
+    var from=S.prog,t0=null;
+    function step(ts){ if(!t0) t0=ts; var k=Math.min(1,(ts-t0)/ms); S.prog=from+(target-from)*k; moveMarkers(); if(k<1) anim=requestAnimationFrame(step); else anim=null; }
+    anim=requestAnimationFrame(step);
+  }
+  function activeOrder(){return ['enroute','arrived','filling'].indexOf(S.status)>-1}
+
+  // ---------- panels ----------
+  function orderSummary(qtyLabel){
+    var q=S.delivered!=null?S.delivered:S.qty;
+    return '<div class="dsum"><div><span>رقم الطلب</span><b class="n">DEMO-1024</b></div>'
+      +'<div><span>نوع الوقود</span><b>'+FUEL[S.fuel]+'</b></div>'
+      +'<div><span>'+(qtyLabel||'الكمية المطلوبة')+'</span><b class="n">'+fmt(q)+' L</b></div>'
+      +'<div><span>الموقع</span><b>'+locName()+'</b></div>'
+      +'<div class="tot"><span>'+(S.delivered!=null?'المبلغ النقدي':'المبلغ التقديري')+'</span><b class="n">'+fmt(q*PRICE[S.fuel])+' IQD</b></div></div>';
+  }
+  function customer(){
+    if(S.status==='draft'){
+      var ok=validQty();
+      return '<div class="seg" role="radiogroup" aria-label="نوع الوقود">'
+        +['petrol','diesel'].map(function(f){return '<label><input type="radio" name="d-fuel" value="'+f+'"'+(S.fuel===f?' checked':'')+'><span>'+FUEL[f]+'</span></label>'}).join('')+'</div>'
+        +'<label class="fld"><span>الكمية باللتر (20–500)</span><input type="number" id="d-qty" min="20" max="500" step="10" value="'+S.qty+'" inputmode="numeric"'+(ok?'':' aria-invalid="true"')+' aria-describedby="d-qty-err"><em class="err" id="d-qty-err">'+(ok?'':'أدخل كمية بين 20 و500 لتر.')+'</em></label>'
+        +'<div class="fld"><span>موقع التسليم — اضغط على الخريطة أو اختر موقعاً</span>'+mapSVG({pick:true})
+        +'<div class="chips">'+PRESETS.map(function(p,i){return '<button type="button" data-preset="'+i+'" aria-pressed="'+(S.preset===i)+'">'+p.n+'</button>'}).join('')+'</div></div>'
+        +'<p class="muted">مناطق الخدمة (نص تجريبي): الأحياء المحيطة بالمستودع. تتحقق الإدارة من الموقع عند المراجعة.</p>'
+        +'<div class="dsum"><div><span>سعر اللتر <span class="tag-demo">افتراضي</span></span><b class="n">'+fmt(PRICE[S.fuel])+' IQD</b></div>'
+        +'<div class="tot"><span>المبلغ التقديري — نقداً عند الاستلام</span><b class="n" id="d-est">'+(ok?fmt(S.qty*PRICE[S.fuel])+' IQD':'—')+'</b></div></div>'
+        +'<button type="button" class="btn" data-act="submit"'+(ok?'':' disabled')+'>إرسال الطلب</button>';
+    }
+    var h='<div class="dstatus'+(S.status==='done'?' ok':'')+'">'+CUST_STATUS[S.status]+'</div>';
+    if(S.status==='done'){
+      return h+'<div class="receipt"><h4>إيصال الطلب</h4>'+orderSummary('الكمية المسلّمة')+'<p class="muted" style="margin-top:8px">الدفع: نقداً عند الاستلام — تم الاستلام.</p></div>';
+    }
+    h+=orderSummary();
+    if(activeOrder()) h+='<div class="fld"><span>موقع السائق أثناء الطلب</span>'+mapSVG({driver:true})+'</div>';
+    else h+=mapSVG({});
+    if(S.driver) h+='<p class="muted">السائق: '+DRIVERS[S.driver].name+'</p>';
+    return h;
+  }
+  function stockTable(){
+    return '<table class="stock"><thead><tr><th>السائق</th><th>بنزين</th><th>كاز</th></tr></thead><tbody>'
+      +Object.keys(DRIVERS).map(function(k){var st=S.stock[k];var low=st.petrol<THRESHOLD||st.diesel<THRESHOLD;
+        return '<tr'+(low?' class="low"':'')+'><td>'+DRIVERS[k].name+'</td><td class="n">'+fmt(st.petrol)+' L</td><td class="n">'+fmt(st.diesel)+' L</td></tr>'}).join('')
+      +'</tbody></table>';
+  }
+  function lowAlerts(){
+    var out=[];Object.keys(DRIVERS).forEach(function(k){['petrol','diesel'].forEach(function(f){if(S.stock[k][f]<THRESHOLD) out.push('تنبيه: مخزون '+FUEL[f]+' لدى '+DRIVERS[k].name+' أقل من '+THRESHOLD+' لتر.')})});
+    return out.map(function(t){return '<div class="alert">'+t+'</div>'}).join('');
+  }
+  function admin(){
+    var h='';
+    if(S.status==='draft') h+='<p class="empty">لا توجد طلبات جديدة.<br>أرسل طلباً من تطبيق العميل.</p>';
+    else{
+      h+='<h4>الطلب DEMO-1024 <span class="tag-demo">تجريبي</span></h4>'+orderSummary(S.status==='done'?'الكمية المسلّمة':null);
+      if(S.status==='pending'){
+        h+='<p class="muted">راجع الموقع مع نص مناطق الخدمة: '+locName()+' ضمن الأحياء المحيطة بالمستودع.</p>'
+          +'<button type="button" class="btn" data-act="approve">الموافقة على الطلب</button>';
+      }else if(S.status==='approved'){
+        h+='<fieldset class="drivers" style="border:0;padding:0;margin:0"><legend class="fld" style="padding:0"><span>إسناد يدوي — اختر سائقاً لديه مخزون كافٍ</span></legend>'
+          +Object.keys(DRIVERS).map(function(k){var have=S.stock[k][S.fuel], ok=have>=S.qty;
+            return '<label class="'+(ok?'':'no')+'"><input type="radio" name="d-drv" value="'+k+'"'+(S.pick===k&&ok?' checked':'')+(ok?'':' disabled')+'><b>'+DRIVERS[k].name+'</b><small>مخزون '+FUEL[S.fuel]+': '+fmt(have)+' لتر'+(ok?'':' — غير كافٍ لهذا الطلب')+'</small></label>'}).join('')
+          +'</fieldset>'+(Object.keys(DRIVERS).some(function(k){return S.stock[k][S.fuel]>=S.qty})?'':'<div class="alert">لا يوجد سائق لديه مخزون كافٍ لهذه الكمية. أعد التجربة بكمية أقل.</div>')+'<button type="button" class="btn" data-act="assign"'+(canAssign()?'':' disabled')+'>إسناد الطلب</button>';
+      }else{
+        h+='<div class="dstatus'+(S.status==='done'?' ok':'')+'">'+(S.status==='done'?'مكتمل':ADMIN_STATUS[S.status])+'</div>';
+        if(S.driver) h+='<p class="muted">السائق المُسند: '+DRIVERS[S.driver].name+'</p>';
+        if(activeOrder()) h+=mapSVG({driver:true});
+      }
+    }
+    h+='<div><h4 style="margin-bottom:4px">المخزون المسجّل</h4>'+stockTable()+'</div>'+lowAlerts();
+    h+='<div><h4 style="margin-bottom:4px">سجل الإجراءات</h4>'+(S.log.length?'<ol class="log">'+S.log.map(function(l){return '<li><time>'+l.t+'</time><span><b>'+esc(l.who)+':</b> '+esc(l.what)+'</span></li>'}).join('')+'</ol>':'<p class="muted">لا توجد إجراءات بعد.</p>')+'</div>';
+    return h;
+  }
+  var CHECKS=['نقطة التأريض موصولة','طفاية الحريق في مكانها','محرك السيارة متوقف','لا توجد مصادر لهب قريبة'];
+  function driver(){
+    if(!S.driver||S.status==='draft'||S.status==='pending'||S.status==='approved')
+      return '<p class="empty">لا توجد مهام مُسندة إليك.<br>تظهر المهمة هنا بعد إسناد الإدارة.</p>';
+    var h='<h4>'+DRIVERS[S.driver].name+'</h4>'+orderSummary();
+    if(S.status==='assigned') return h+'<p class="muted">مهمة جديدة مُسندة إليك.</p><button type="button" class="btn" data-act="enroute">في الطريق</button>';
+    if(S.status==='enroute') return h+'<div class="dstatus">في الطريق إلى العميل</div><button type="button" class="btn" data-act="arrive">وصلت</button>';
+    if(S.status==='arrived'){
+      var all=S.checks.every(Boolean);
+      return h+'<fieldset class="checks" style="border:0;padding:0;margin:0"><legend class="fld" style="padding:0"><span>قائمة تحقق السلامة — إقرار السائق</span></legend>'
+        +CHECKS.map(function(c,i){return '<label><input type="checkbox" data-check="'+i+'"'+(S.checks[i]?' checked':'')+'><span>'+c+'</span></label>'}).join('')
+        +'</fieldset><p class="muted">يُحفظ اسم السائق ووقت التأكيد. هذا توثيق لإقرار السائق، وليس فحصاً آلياً.</p>'
+        +'<button type="button" class="btn" data-act="startfill"'+(all?'':' disabled')+'>تأكيد القائمة وبدء التعبئة</button>';
+    }
+    if(S.status==='filling'){
+      var max=Math.min(S.qty,S.stock[S.driver][S.fuel]), v=S.delivered==null?S.qty:S.delivered, ok=validDelivered(v);
+      return '<h4>'+DRIVERS[S.driver].name+'</h4>'
+        +'<label class="fld"><span>الكمية المسلّمة من قراءة العدّاد (حتى '+fmt(max)+' لتر)</span><input type="number" id="d-del" min="1" max="'+max+'" step="1" value="'+v+'" inputmode="numeric"'+(ok?'':' aria-invalid="true"')+' aria-describedby="d-del-err"><em class="err" id="d-del-err">'+(ok?'':'أدخل كمية بين 1 و'+fmt(max)+' لتر.')+'</em></label>'
+        +'<div class="dsum"><div class="tot"><span>المبلغ النقدي المطلوب</span><b class="n" id="d-cash">'+(ok?fmt(v*PRICE[S.fuel])+' IQD':'—')+'</b></div></div>'
+        +'<div class="checks"><label><input type="checkbox" id="d-cashok"'+(S.cash?' checked':'')+'><span>استلمت المبلغ نقداً من العميل</span></label></div>'
+        +'<button type="button" class="btn" data-act="complete"'+(ok&&S.cash?'':' disabled')+'>إكمال الطلب</button>';
+    }
+    return '<h4>'+DRIVERS[S.driver].name+'</h4>'+orderSummary('الكمية المسلّمة')+'<div class="dstatus ok">تم إكمال الطلب</div>';
+  }
+  function locName(){return S.preset>-1?PRESETS[S.preset].n:'موقع محدد على الخريطة (تجريبي)'}
+  function validQty(){return S.qty>=20&&S.qty<=500&&Math.round(S.qty)===S.qty}
+  function validDelivered(v){var max=Math.min(S.qty,S.stock[S.driver][S.fuel]);return v>=1&&v<=max&&Math.round(v)===v}
+  function canAssign(){return S.pick&&S.stock[S.pick][S.fuel]>=S.qty}
+
+  // ---------- render ----------
+  var bodies={customer:document.getElementById('body-customer'),admin:document.getElementById('body-admin'),driver:document.getElementById('body-driver')};
+  var grid=document.getElementById('demo-grid'), live=document.getElementById('demo-live');
+  function render(focusSel){
+    bodies.customer.innerHTML=customer();bodies.admin.innerHTML=admin();bodies.driver.innerHTML=driver();
+    var idx=STAGE[S.status];
+    root.querySelectorAll('#demo-stages li').forEach(function(li,i){li.className=i<idx?'done':(i===idx?'now':'');if(i===idx) li.setAttribute('aria-current','step'); else li.removeAttribute('aria-current')});
+    var sn=document.getElementById('stage-now'); if(sn) sn.textContent=S.status==='done'?'اكتملت الدورة — جميع المراحل منجزة':'المرحلة '+(idx+1)+' من 7: '+STAGE_NAMES[idx];
+    var turn=TURN[S.status];
+    ['customer','admin','driver'].forEach(function(r){
+      document.getElementById('panel-'+r).classList.toggle('active-turn',turn===r);
+      var tb=root.querySelector('[data-tab="'+r+'"]'); tb.classList.toggle('needs',turn===r&&S.view!==r);
+      tb.setAttribute('aria-selected',S.view===r); tb.tabIndex=S.view===r?0:-1;
+    });
+    grid.setAttribute('data-view',S.view);
+    if(focusSel){var el=root.querySelector(focusSel); if(el) el.focus({preventScroll:true});}
+  }
+  function go(status,announce){
+    S.status=status;
+    var turn=TURN[status], mob=window.matchMedia('(max-width:1000px)').matches, sw=turn&&mob&&S.view!==turn; if(sw) S.view=turn;
+    render(); live.textContent=announce||'';
+    if(sw){var tb=root.querySelector('.demo-tabs'); if(tb.getBoundingClientRect().top<0) tb.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});}
+  }
+
+  // ---------- events ----------
+  root.addEventListener('click',function(e){
+    var t=e.target.closest('button,svg[data-map]'); if(!t||!root.contains(t)) return;
+    if(t.id==='demo-reset'){ if(anim) cancelAnimationFrame(anim); anim=null; var v=S.view; S=fresh(); S.view=window.matchMedia('(max-width:1000px)').matches?'customer':v; render(); live.textContent='أُعيدت التجربة من البداية.'; return; }
+    if(t.dataset.tab){ S.view=t.dataset.tab; render('[data-tab="'+S.view+'"]'); return; }
+    if(t.dataset.preset!=null){ var p=PRESETS[+t.dataset.preset]; S.preset=+t.dataset.preset; S.pin={x:p.x,y:p.y}; render('[data-preset="'+t.dataset.preset+'"]'); return; }
+    if(t.matches('svg[data-map]')&&S.status==='draft'){
+      var pt=t.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY; var m=t.getScreenCTM(); if(!m) return;
+      var q=pt.matrixTransform(m.inverse()); S.pin={x:Math.max(12,Math.min(308,q.x)),y:Math.max(24,Math.min(160,q.y))};
+      S.preset=-1; render(); return;
+    }
+    switch(t.dataset.act){
+      case 'submit': if(!validQty()) return; log('العميل التجريبي','إنشاء الطلب ('+FUEL[S.fuel]+'، '+S.qty+' لتر)'); go('pending','أُرسل الطلب. الدور الآن للإدارة.'); break;
+      case 'approve': log('مشرف تجريبي','الموافقة على الطلب'); go('approved','تمت الموافقة. اختر سائقاً للإسناد.'); break;
+      case 'assign': if(!canAssign()) return; S.driver=S.pick; log('مشرف تجريبي','إسناد الطلب إلى '+DRIVERS[S.driver].name); go('assigned','أُسند الطلب. الدور الآن للسائق.'); break;
+      case 'enroute': S.prog=0; log(DRIVERS[S.driver].name,'تغيير الحالة إلى «في الطريق»'); go('enroute','السائق في الطريق.'); animateTo(.85,3500); break;
+      case 'arrive': log(DRIVERS[S.driver].name,'تغيير الحالة إلى «وصل»'); go('arrived','وصل السائق. أكّد قائمة السلامة.'); animateTo(1,600); break;
+      case 'startfill': if(!S.checks.every(Boolean)) return; log(DRIVERS[S.driver].name,'تأكيد قائمة السلامة وبدء التعبئة'); go('filling','أدخل الكمية المسلّمة وأكّد استلام النقد.'); break;
+      case 'complete':
+        var v=S.delivered==null?S.qty:S.delivered; if(!validDelivered(v)||!S.cash) return;
+        S.delivered=v; S.stock[S.driver][S.fuel]-=v;
+        log(DRIVERS[S.driver].name,'تسجيل الكمية المسلّمة: '+v+' لتر');
+        log(DRIVERS[S.driver].name,'تأكيد استلام '+fmt(v*PRICE[S.fuel])+' د.ع نقداً وإكمال الطلب');
+        if(anim) cancelAnimationFrame(anim); anim=null;
+        go('done','اكتمل الطلب. يمكنك إعادة التجربة.'); break;
+    }
+  });
+  root.addEventListener('change',function(e){
+    var t=e.target;
+    if(t.name==='d-fuel'){S.fuel=t.value;render('input[name=d-fuel][value='+t.value+']');}
+    else if(t.name==='d-drv'){S.pick=t.value;root.querySelector('[data-act=assign]').disabled=!canAssign();}
+    else if(t.dataset.check!=null){S.checks[+t.dataset.check]=t.checked;root.querySelector('[data-act=startfill]').disabled=!S.checks.every(Boolean);}
+    else if(t.id==='d-cashok'){S.cash=t.checked;updateFill();}
+  });
+  root.addEventListener('input',function(e){
+    var t=e.target;
+    if(t.id==='d-qty'){S.qty=t.value===''?0:Number(t.value);var ok=validQty();
+      t.setAttribute('aria-invalid',!ok);document.getElementById('d-qty-err').textContent=ok?'':'أدخل كمية بين 20 و500 لتر.';
+      document.getElementById('d-est').textContent=ok?fmt(S.qty*PRICE[S.fuel])+' IQD':'—';root.querySelector('[data-act=submit]').disabled=!ok;}
+    if(t.id==='d-del'){S.delivered=t.value===''?0:Number(t.value);updateFill();}
+  });
+  function updateFill(){
+    var v=S.delivered==null?S.qty:S.delivered, ok=validDelivered(v), max=Math.min(S.qty,S.stock[S.driver][S.fuel]);
+    var inp=document.getElementById('d-del'); inp.setAttribute('aria-invalid',!ok);
+    document.getElementById('d-del-err').textContent=ok?'':'أدخل كمية بين 1 و'+fmt(max)+' لتر.';
+    document.getElementById('d-cash').textContent=ok?fmt(v*PRICE[S.fuel])+' IQD':'—';
+    root.querySelector('[data-act=complete]').disabled=!(ok&&S.cash);
+  }
+  root.querySelector('.demo-tabs').addEventListener('keydown',function(e){
+    var order=['customer','admin','driver'],i=order.indexOf(S.view);
+    if(e.key==='ArrowLeft'||e.key==='ArrowRight'){ e.preventDefault(); var dir=(e.key==='ArrowLeft')?1:-1; S.view=order[(i+dir+3)%3]; render('[data-tab="'+S.view+'"]'); }
+  });
+
+  S=fresh(); render();
+})();
+</script>
 </body>
 </html>
