@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>بوزرجي — العرض الفني والمالي</title>
+<meta name="description" content="العرض الفني والمالي لمنصة بوزرجي لتوصيل الوقود: تطبيق للطالب والناقل، لوحة تحكم للإدارة، الاستضافة والاشتراك السنوي.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --asphalt:#15181D;
+  --asphalt-2:#1E232A;
+  --steel:#5B6470;
+  --line:#DADDD8;
+  --paper:#F4F5F2;
+  --card:#FFFFFF;
+  --ink:#1A1D22;
+  --muted:#5E6570;
+  --orange:#E8650A;
+  --orange-deep:#B94E05;
+  --hazard:#F6C21C;
+  --meter:#3BE38B;
+  --meter-bg:#0B0F0D;
+  --danger:#C23A2B;
+  --radius:14px;
+  --display:"Alexandria", "IBM Plex Sans Arabic", sans-serif;
+  --body:"IBM Plex Sans Arabic", system-ui, sans-serif;
+  --mono:"Share Tech Mono", ui-monospace, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.85;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--orange-deep)}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+@media (max-width:640px){.wrap{padding:0 16px}body{font-size:16px}}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(21,24,29,.94);backdrop-filter:blur(8px);color:#fff}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:0;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand small{font-family:var(--mono);font-size:12px;color:var(--hazard);letter-spacing:.14em}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{color:#C9CED6;text-decoration:none;font-size:14px;padding:6px 10px;border-radius:8px;white-space:nowrap}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+@media (max-width:820px){.nav{display:none}}
+.print-btn{font:600 14px var(--body);background:var(--orange);color:#fff;border:0;border-radius:10px;padding:8px 14px;cursor:pointer}
+.print-btn:hover{background:var(--orange-deep)}
+
+/* ---------- hero ---------- */
+.hero{background:var(--asphalt);color:#fff;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-top:64px;padding-bottom:72px}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:36px;padding-top:40px;padding-bottom:56px}}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.18em;color:var(--hazard);text-transform:uppercase;direction:ltr;display:inline-block}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(38px,6vw,68px);line-height:1.15;margin:14px 0 18px}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p.lead{color:#C9CED6;font-size:19px;max-width:34em;margin:0 0 28px}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:5px 14px;font-size:14px;color:#DDE1E6}
+.chip b{color:#fff;font-weight:600}
+.hero-media{position:relative}
+.hero-media img{border-radius:18px;aspect-ratio:1171/771;object-fit:cover;width:100%;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.hero-media figcaption{font-size:13px;color:#8C94A0;margin-top:10px}
+
+/* pump meter — signature */
+.meter{background:var(--meter-bg);border:2px solid #2C3530;border-radius:12px;padding:14px 18px;color:var(--meter);font-family:var(--mono);direction:ltr;box-shadow:inset 0 0 24px rgba(59,227,139,.08)}
+.meter .lbl{display:block;font-size:11px;letter-spacing:.2em;color:#6FAE8B;text-transform:uppercase}
+.meter .val{font-size:clamp(30px,4.2vw,44px);line-height:1.1;text-shadow:0 0 12px rgba(59,227,139,.45);white-space:nowrap}
+.meter .val small{font-size:.45em;color:#8FD7AF;margin-left:6px}
+.hero-meter{position:absolute;left:-18px;bottom:-26px;min-width:220px}
+@media (max-width:900px){.hero-meter{position:static;margin-top:16px}}
+
+.hazard{height:14px;background:repeating-linear-gradient(-45deg,var(--hazard) 0 18px,#111 18px 36px)}
+
+/* ---------- sections ---------- */
+section{padding:88px 0}
+@media (max-width:640px){section{padding:60px 0}}
+section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sec-head{max-width:760px;margin-bottom:40px}
+.eyebrow.ar,.sec-head .eyebrow{color:var(--orange-deep);font-family:var(--body);font-weight:600;letter-spacing:0;direction:rtl;font-size:14px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.6vw,40px);line-height:1.3;margin:10px 0 12px}
+h3{font-family:var(--display);font-weight:700;font-size:21px;line-height:1.4;margin:0 0 8px}
+.sec-head p{color:var(--muted);margin:0;font-size:18px}
+p{margin:0 0 14px}
+
+.grid{display:grid;gap:20px}
+.grid>*,.summary>*,.price-grid>*,.arch>*{min-width:0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+section.alt .card{background:var(--paper)}
+.card p{color:var(--muted);margin:0}
+ul.ticks{list-style:none;padding:0;margin:0}
+ul.ticks li{position:relative;padding-inline-start:22px;margin-bottom:8px;color:#343A42}
+ul.ticks li::before{content:"";position:absolute;inset-inline-start:0;top:.75em;width:9px;height:9px;border-radius:2px;background:var(--orange);transform:rotate(45deg)}
+
+/* summary */
+.summary{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start}
+@media (max-width:900px){.summary{grid-template-columns:1fr}}
+.summary .big{font-size:20px;line-height:1.9}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stats .meter .val{font-size:30px}
+
+/* spec table */
+.spec{width:100%;border-collapse:collapse;font-size:15.5px;background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+.spec th,.spec td{padding:12px 16px;text-align:start;border-bottom:1px solid var(--line);vertical-align:top}
+.spec thead th{background:var(--asphalt);color:#fff;font-weight:600;font-size:14px}
+.spec tbody tr:last-child td{border-bottom:0}
+.spec td.num{font-family:var(--mono);direction:ltr;text-align:end;white-space:nowrap;font-size:16px}
+.tbl-scroll{overflow-x:auto;border-radius:var(--radius)}
+
+/* placard for fuel type */
+.placard{display:inline-grid;place-items:center;width:58px;height:58px;transform:rotate(45deg);border:3px solid #111;background:var(--danger);border-radius:6px;flex:none}
+.placard span{transform:rotate(-45deg);font-family:var(--mono);font-size:12px;color:#fff;line-height:1.1;text-align:center}
+.fuel{display:flex;gap:22px;align-items:center}
+
+/* interfaces */
+.iface{position:relative;padding-top:30px}
+.iface .tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--orange-deep);direction:ltr;display:inline-block;margin-bottom:6px}
+.iface h3{font-size:24px}
+.iface .who{color:var(--muted);margin-bottom:16px}
+.iface.dark{background:var(--asphalt);color:#fff;border-color:var(--asphalt)}
+.iface.dark .who,.iface.dark ul.ticks li{color:#C9CED6}
+.iface.dark .tag{color:var(--hazard)}
+
+/* order flow */
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:0;counter-reset:st;position:relative}
+.flow::before{content:"";position:absolute;top:22px;inset-inline:6%;height:4px;background:repeating-linear-gradient(90deg,var(--steel) 0 12px,transparent 12px 20px)}
+.flow li{position:relative;text-align:center;padding:0 6px;counter-increment:st}
+.flow .dot{width:48px;height:48px;border-radius:50%;margin:0 auto 12px;background:#fff;border:3px solid var(--asphalt);display:grid;place-items:center;font-family:var(--mono);font-size:18px;position:relative;z-index:1}
+.flow li:last-child .dot{background:var(--orange);border-color:var(--orange);color:#fff}
+.flow b{display:block;font-family:var(--display);font-size:16px;margin-bottom:4px}
+.flow small{display:block;color:var(--muted);font-size:13.5px;line-height:1.6}
+.flow .actor{display:inline-block;font-size:11.5px;border-radius:999px;padding:1px 9px;margin-top:6px;background:#EEF0EC;color:#394049}
+@media (max-width:900px){
+  .flow{grid-template-columns:1fr;gap:18px}
+  .flow::before{top:0;bottom:0;inset-inline-start:22px;inset-inline-end:auto;width:4px;height:auto;background:repeating-linear-gradient(180deg,var(--steel) 0 12px,transparent 12px 20px)}
+  .flow li{display:grid;grid-template-columns:48px 1fr;gap:16px;text-align:start;padding:0}
+  .flow .dot{margin:0}
+}
+
+/* rules from spec */
+.rule{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.rule .ico{width:44px;height:44px;border-radius:10px;background:#FFF1E6;color:var(--orange-deep);display:grid;place-items:center;font-family:var(--mono);font-size:15px}
+
+/* architecture */
+.arch{display:grid;grid-template-columns:1fr auto 1.2fr auto 1fr;gap:14px;align-items:stretch}
+.arch .col{display:grid;gap:12px;align-content:center}
+.node{border:1.5px solid var(--asphalt);border-radius:12px;padding:14px 16px;background:#fff;font-size:15px}
+.node b{display:block;font-family:var(--display);font-size:16px}
+.node span{color:var(--muted);font-size:13.5px}
+.node.core{background:var(--asphalt);color:#fff;border-color:var(--asphalt)}
+.node.core span{color:#AEB5BF}
+.arrow{display:grid;place-items:center;color:var(--steel);font-family:var(--mono);font-size:22px}
+@media (max-width:900px){.arch{grid-template-columns:1fr}.arrow{transform:rotate(90deg);height:26px}}
+
+.stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.stack span{font-family:var(--mono);direction:ltr;font-size:14px;background:#fff;border:1px solid var(--line);padding:5px 12px;border-radius:8px}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:10px;direction:rtl}
+.tl .wk{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center}
+.tl-row{display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.tl-row:last-child{border-bottom:0}
+.tl-row .name b{font-family:var(--display);display:block;font-size:16px}
+.tl-row .name small{color:var(--muted);font-size:13.5px}
+.bar-track{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;height:30px}
+.bar{border-radius:7px;background:var(--asphalt);color:#fff;font-size:12.5px;display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden}
+.bar.o{background:var(--orange)}
+.bar.h{background:var(--hazard);color:#111}
+@media (max-width:760px){.tl-row{grid-template-columns:1fr}.tl.head{display:none}}
+
+/* pricing */
+.price-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:24px;align-items:start}
+@media (max-width:900px){.price-grid{grid-template-columns:1fr}}
+.price-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.price-card header{padding:24px 26px 10px}
+.price-card header p{color:var(--muted);margin:0}
+.lines{list-style:none;margin:0;padding:0 26px}
+.lines li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.lines li:last-child{border-bottom:0}
+.lines li div b{display:block;font-weight:600}
+.lines li div small{color:var(--muted);font-size:14px}
+.lines .amt{font-family:var(--mono);direction:ltr;font-size:19px;white-space:nowrap}
+.price-card .total{padding:18px 26px 26px;background:var(--asphalt)}
+.price-card .total .meter{border-color:#34403A}
+.sub-card{background:var(--asphalt);color:#fff;border-radius:18px;padding:26px;position:relative;overflow:hidden}
+.sub-card .hazard{position:absolute;top:0;inset-inline:0;height:8px}
+.sub-card h3{margin-top:8px}
+.sub-card p{color:#C9CED6}
+.sub-card ul.ticks li{color:#DDE1E6}
+.sub-card .excl{margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:14.5px;color:#AEB5BF}
+.note{font-size:14.5px;color:var(--muted);margin-top:16px}
+
+/* terms */
+ol.terms{margin:0;padding-inline-start:22px}
+ol.terms li{margin-bottom:10px;color:#343A42}
+.pay-split{display:grid;grid-template-columns:40fr 30fr 30fr;gap:6px;margin:18px 0 8px}
+.pay-split div{border-radius:10px;padding:14px;color:#fff;background:var(--asphalt)}
+.pay-split div:nth-child(2){background:var(--steel)}
+.pay-split div:nth-child(3){background:var(--orange)}
+.pay-split b{font-family:var(--mono);font-size:24px;display:block;direction:ltr;text-align:end}
+.pay-split small{font-size:13.5px;opacity:.9}
+@media (max-width:640px){.pay-split{grid-template-columns:1fr}}
+
+.warn{border-inline-start:5px solid var(--danger);background:#FDF1EF;border-radius:10px;padding:18px 20px}
+.warn h3{color:var(--danger);font-size:18px}
+.warn p{color:#4A3430;margin:0}
+
+/* sign */
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
+.sign div{border:1px dashed #B9BEB6;border-radius:12px;padding:20px;min-height:150px}
+.sign b{font-family:var(--display)}
+.sign .ln{border-bottom:1px solid #B9BEB6;height:34px;margin-top:10px}
+.sign small{color:var(--muted)}
+@media (max-width:640px){.sign{grid-template-columns:1fr}}
+
+footer{background:var(--asphalt);color:#8C94A0;font-size:14px;padding:28px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media print{
+  .topbar,.print-btn{display:none}
+  body{background:#fff;font-size:12.5pt}
+  section{padding:36px 0;break-inside:avoid-page}
+  .hero .wrap{padding:30px 24px}
+  .card,.price-card,.sub-card,.tl-row{break-inside:avoid}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">بوزرجي <small>BOZERJI</small></a>
+    <nav class="nav" aria-label="أقسام العرض">
+      <a href="#summary">الملخص</a>
+      <a href="#system">مكونات النظام</a>
+      <a href="#flow">دورة الطلب</a>
+      <a href="#tech">البنية التقنية</a>
+      <a href="#hosting">الاستضافة</a>
+      <a href="#timeline">الجدول الزمني</a>
+      <a href="#pricing">التكلفة</a>
+      <a href="#terms">الشروط</a>
+    </nav>
+    <button class="print-btn" type="button" onclick="window.print()">طباعة / PDF</button>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Technical &amp; Financial Proposal</span>
+      <h1>منصة <em>بوزرجي</em><br>لطلب الوقود وتوصيله</h1>
+      <p class="lead">تطبيق واحد لأندرويد وiOS فيه واجهتان: واجهة لمن يطلب الوقود وواجهة للسائق الذي يوصله، ولوحة تحكم ويب للإدارة توافق على الطلبات وترسلها إلى المحطة المتنقلة الأقرب.</p>
+      <div class="meta-row">
+        <span class="chip">التاريخ: <b>أيلول 2026</b></span>
+        <span class="chip">الإصدار: <b>1.0</b></span>
+        <span class="chip">صلاحية العرض: <b>30 يوماً</b></span>
+      </div>
+    </div>
+    <figure class="hero-media" style="margin:0">
+      <img src="assets/truck.jpg" alt="محطة بوزرجي المتنقلة على سيارة كيا K2700 بصندوق أبيض ومضخة وبكرة خرطوم" width="1171" height="771">
+      <div class="meter hero-meter" aria-hidden="true">
+        <span class="lbl">Capacity · Petrol + Diesel</span>
+        <div class="val">1000.00<small>L</small></div>
+      </div>
+      <figcaption>المحطة المتنقلة كما وردت في مواصفات التصنيع — Kia K2700، خزانان سعة كل منهما 500 لتر.</figcaption>
+    </figure>
+  </div>
+  <div class="hazard" aria-hidden="true"></div>
+</header>
+
+<main>
+
+<!-- ============ SUMMARY ============ -->
+<section id="summary">
+  <div class="wrap summary">
+    <div>
+      <span class="eyebrow ar">01 · الملخص التنفيذي</span>
+      <h2>ماذا سنبني ولماذا</h2>
+      <p class="big">تمتلك الجهة المستفيدة محطات وقود متنقلة تحمل البنزين والكاز. ينقصها نظام يجمع الطلبات من الزبائن، ويعرضها على الإدارة للموافقة، ثم يوجّهها إلى السائق المختص مع تتبّع مباشر حتى تسليم الوقود واستلام المبلغ نقداً.</p>
+      <p>يغطي هذا العرض تحليل المتطلبات، والتصميم، والتطوير، والنشر على Google Play وApp Store، والاستضافة، والصيانة السنوية، ضمن كلفة تطوير تُدفع مرة واحدة واشتراك سنوي ثابت.</p>
+    </div>
+    <div class="stats" aria-label="أرقام رئيسية">
+      <div class="meter"><span class="lbl">Interfaces</span><div class="val">3</div></div>
+      <div class="meter"><span class="lbl">Platforms</span><div class="val">iOS+AND</div></div>
+      <div class="meter"><span class="lbl">Delivery</span><div class="val">12<small>WEEKS</small></div></div>
+      <div class="meter"><span class="lbl">Payment</span><div class="val">COD</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VEHICLE ============ -->
+<section class="alt" id="vehicle">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">02 · فهم المشروع</span>
+      <h2>ما تعلّمناه من مواصفات المحطة المتنقلة</h2>
+      <p>قرأنا ملف مواصفات التصنيع، واستخرجنا منه ما يؤثر في منطق التطبيق: السعة، وأنواع الوقود، ومتطلبات السلامة.</p>
+    </div>
+    <div class="grid g2">
+      <div class="tbl-scroll">
+        <table class="spec">
+          <thead><tr><th>البند</th><th style="text-align:end">القيمة</th></tr></thead>
+          <tbody>
+            <tr><td>السيارة الأساسية</td><td class="num">Kia K2700</td></tr>
+            <tr><td>عدد الخزانات</td><td class="num">2</td></tr>
+            <tr><td>سعة الخزان الواحد</td><td class="num">500 L</td></tr>
+            <tr><td>طول الخرطوم</td><td class="num">15 m</td></tr>
+            <tr><td>قطر الخرطوم</td><td class="num">19 mm (3/4")</td></tr>
+            <tr><td>الوزن المتوقع عند التعبئة الكاملة</td><td class="num">≈ 1650–1750 kg</td></tr>
+            <tr><td>مضخة التعبئة</td><td class="num">2 × pump + meter</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid" style="gap:16px">
+        <div class="card fuel">
+          <div class="placard" aria-hidden="true"><span>UN<br>1203</span></div>
+          <div><h3>خزان البنزين — 500 لتر</h3><p>مادة قابلة للاشتعال من الفئة 3. يلتزم السائق بقائمة السلامة قبل كل تعبئة.</p></div>
+        </div>
+        <div class="card fuel">
+          <div class="placard" aria-hidden="true" style="background:#D8761A"><span>UN<br>1202</span></div>
+          <div><h3>خزان الكاز — 500 لتر</h3><p>يُعرض نوعاً مستقلاً في التطبيق وله سعره ومخزونه الخاص.</p></div>
+        </div>
+        <div class="card">
+          <h3>ماذا يعني ذلك للتطبيق؟</h3>
+          <p>كل محطة متنقلة تحمل مخزوناً محدوداً من كل نوع. لذلك يتتبّع النظام الكمية المتبقية في كل خزان، ولا يُسند إلى السائق طلباً يتجاوز ما تبقّى لديه.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SYSTEM ============ -->
+<section id="system">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">03 · مكونات النظام</span>
+      <h2>تطبيق واحد بواجهتين، ولوحة تحكم للإدارة</h2>
+      <p>يسجّل المستخدم دخوله برقم هاتفه، ويفتح التطبيق الواجهة المناسبة لدوره تلقائياً. حسابات السائقين تُنشأ من لوحة الإدارة فقط.</p>
+    </div>
+    <div class="grid g3">
+      <article class="card iface">
+        <span class="tag">APP · CUSTOMER</span>
+        <h3>واجهة طالب الوقود</h3>
+        <p class="who">أفراد، مولّدات، شركات، ومواقع إنشاء.</p>
+        <ul class="ticks">
+          <li>التسجيل برقم الهاتف ورمز تحقق</li>
+          <li>اختيار نوع الوقود والكمية باللتر</li>
+          <li>تحديد الموقع على الخريطة وحفظ العناوين</li>
+          <li>طلب فوري أو موعد لاحق</li>
+          <li>عرض السعر الكلي قبل التأكيد</li>
+          <li>متابعة حالة الطلب وموقع السائق مباشرة</li>
+          <li>الدفع نقداً عند الاستلام</li>
+          <li>سجل الطلبات والفواتير وتقييم الخدمة</li>
+        </ul>
+      </article>
+      <article class="card iface">
+        <span class="tag">APP · DRIVER</span>
+        <h3>واجهة السائق الناقل</h3>
+        <p class="who">سائقو المحطات المتنقلة المعتمدون.</p>
+        <ul class="ticks">
+          <li>تبديل الحالة بين متاح وغير متاح</li>
+          <li>استلام الطلبات المُسندة مع إشعار فوري</li>
+          <li>الملاحة إلى الزبون عبر خرائط Google</li>
+          <li>قائمة فحص السلامة قبل التعبئة</li>
+          <li>إدخال قراءة العدّاد الفعلية بعد التعبئة</li>
+          <li>تأكيد استلام المبلغ النقدي</li>
+          <li>عرض المخزون المتبقي في كل خزان</li>
+          <li>ملخص يومي للطلبات والنقد المستلم</li>
+        </ul>
+      </article>
+      <article class="card iface dark">
+        <span class="tag">WEB · ADMIN</span>
+        <h3>لوحة تحكم الإدارة</h3>
+        <p class="who">مدير العمليات والمحاسبة وخدمة الزبائن.</p>
+        <ul class="ticks">
+          <li>مراجعة الطلبات الجديدة والموافقة عليها أو رفضها</li>
+          <li>إسناد الطلب إلى السائق الأقرب مع اقتراح تلقائي</li>
+          <li>خريطة حية لمواقع المحطات المتنقلة</li>
+          <li>إدارة السائقين والمركبات والخزانات</li>
+          <li>تحديد أسعار الوقود ومناطق الخدمة</li>
+          <li>تسوية النقد اليومية مع كل سائق</li>
+          <li>تقارير المبيعات والكميات والأداء</li>
+          <li>صلاحيات حسب الدور وسجل للعمليات</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLOW ============ -->
+<section class="alt" id="flow">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">04 · دورة الطلب</span>
+      <h2>من ضغطة الزبون إلى تسليم الوقود</h2>
+      <p>يمر كل طلب بسبع مراحل، وتُسجَّل كل مرحلة بوقتها ومنفّذها. يصل إشعار إلى الزبون عند كل انتقال.</p>
+    </div>
+    <ol class="flow">
+      <li><span class="dot">1</span><div><b>إنشاء الطلب</b><small>النوع، الكمية، الموقع، الموعد</small><span class="actor">الزبون</span></div></li>
+      <li><span class="dot">2</span><div><b>المراجعة</b><small>موافقة أو رفض مع ذكر السبب</small><span class="actor">الإدارة</span></div></li>
+      <li><span class="dot">3</span><div><b>الإسناد</b><small>أقرب سائق لديه مخزون كافٍ</small><span class="actor">الإدارة</span></div></li>
+      <li><span class="dot">4</span><div><b>في الطريق</b><small>تتبّع مباشر ووقت وصول متوقع</small><span class="actor">السائق</span></div></li>
+      <li><span class="dot">5</span><div><b>الوصول والفحص</b><small>قائمة السلامة والتأريض</small><span class="actor">السائق</span></div></li>
+      <li><span class="dot">6</span><div><b>التعبئة</b><small>إدخال قراءة العدّاد الفعلية</small><span class="actor">السائق</span></div></li>
+      <li><span class="dot">7</span><div><b>التسليم</b><small>استلام النقد وإصدار الفاتورة</small><span class="actor">السائق</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ RULES ============ -->
+<section id="rules">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">05 · قواعد التشغيل</span>
+      <h2>قواعد مبنية على واقع المحطة المتنقلة</h2>
+      <p>هذه القواعد تجعل النظام مطابقاً لما يحدث فعلاً على الأرض، ويمكن للإدارة تعديل قيمها من لوحة التحكم.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card rule"><span class="ico">L</span><div><h3>حدود الكمية</h3><p>حد أدنى وحد أقصى للطلب الواحد، والحد الأقصى لا يتجاوز سعة الخزان (500 لتر).</p></div></div>
+      <div class="card rule"><span class="ico">≈</span><div><h3>الفوترة حسب العدّاد</h3><p>الزبون يرى سعراً تقديرياً عند الطلب، والفاتورة النهائية تُحسب من قراءة العدّاد الفعلية التي يُدخلها السائق.</p></div></div>
+      <div class="card rule"><span class="ico">⚠</span><div><h3>فحص سلامة إلزامي</h3><p>لا يستطيع السائق بدء التعبئة قبل تأكيد التأريض، ووجود الطفاية، وإيقاف المحرك، وخلو المكان من مصادر اللهب.</p></div></div>
+      <div class="card rule"><span class="ico">⛽</span><div><h3>مخزون كل خزان</h3><p>يُخصم المخزون تلقائياً بعد كل تسليم، ويُسجَّل التزوّد من المستودع، وتُنبَّه الإدارة عند انخفاض المخزون.</p></div></div>
+      <div class="card rule"><span class="ico">⌖</span><div><h3>مناطق الخدمة</h3><p>ترسم الإدارة حدود المناطق على الخريطة، ويُرفض تلقائياً أي طلب من خارجها مع رسالة توضح السبب.</p></div></div>
+      <div class="card rule"><span class="ico">IQD</span><div><h3>تسوية النقد</h3><p>يُطابَق النقد الذي يسلّمه السائق نهاية اليوم مع مجموع فواتيره، ويظهر أي فرق في تقرير مستقل.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECH ============ -->
+<section class="alt" id="tech">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">06 · البنية التقنية</span>
+      <h2>كيف تتصل الأجزاء ببعضها</h2>
+      <p>خادم مركزي واحد يخدم التطبيق ولوحة التحكم، مع اتصال لحظي لتحديث المواقع والحالات دون إعادة تحميل.</p>
+    </div>
+    <div class="arch">
+      <div class="col">
+        <div class="node"><b>تطبيق Flutter</b><span>واجهة الطالب + واجهة السائق</span></div>
+        <div class="node"><b>لوحة تحكم الويب</b><span>Laravel Filament</span></div>
+      </div>
+      <div class="arrow" aria-hidden="true">⇄</div>
+      <div class="col">
+        <div class="node core"><b>Laravel 12 API</b><span>المصادقة، الطلبات، الإسناد، التسعير، التقارير</span></div>
+        <div class="node core"><b>Laravel Reverb</b><span>WebSockets للتتبع اللحظي</span></div>
+        <div class="node core"><b>Queues + Horizon</b><span>الإشعارات والمهام الخلفية</span></div>
+      </div>
+      <div class="arrow" aria-hidden="true">⇄</div>
+      <div class="col">
+        <div class="node"><b>MySQL 8 + Redis</b><span>البيانات والتخزين المؤقت</span></div>
+        <div class="node"><b>Firebase FCM</b><span>الإشعارات الفورية</span></div>
+        <div class="node"><b>Google Maps</b><span>الخرائط والملاحة والمسافات</span></div>
+        <div class="node"><b>مزوّد OTP</b><span>رسائل رمز التحقق</span></div>
+      </div>
+    </div>
+    <div class="stack" aria-label="التقنيات">
+      <span>Flutter 3</span><span>Dart</span><span>Laravel 12</span><span>PHP 8.4</span><span>Filament 4</span><span>MySQL 8</span><span>Redis</span><span>Reverb</span><span>Sanctum</span><span>FCM</span><span>Google Maps SDK</span><span>Nginx</span><span>Ubuntu 24.04 LTS</span>
+    </div>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card"><h3>لماذا Flutter؟</h3><p>قاعدة كود واحدة تنتج تطبيقَي أندرويد وiOS بأداء قريب من الأصلي، وتدعم العربية واتجاه RTL بشكل كامل.</p></div>
+      <div class="card"><h3>لماذا Laravel؟</h3><p>إطار ناضج ومستقر، سريع في بناء الـAPI ولوحات التحكم، ويسهل إيجاد مطوّرين له في السوق المحلي.</p></div>
+      <div class="card"><h3>الملكية</h3><p>يُسلَّم الكود المصدري كاملاً للجهة المستفيدة بعد سداد كلفة التطوير، مع توثيق للـAPI وطريقة التشغيل.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOSTING & SECURITY ============ -->
+<section id="hosting">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">07 · الاستضافة والأمان</span>
+      <h2>خادم مخصص بنسخ احتياطي يومي</h2>
+      <p>نوصي بخادم افتراضي مخصص (VPS) في مركز بيانات فرانكفورت لقربه من العراق وانخفاض زمن الاستجابة.</p>
+    </div>
+    <div class="grid g2">
+      <div class="tbl-scroll">
+        <table class="spec">
+          <thead><tr><th>مواصفات الخادم المقترح</th><th style="text-align:end">القيمة</th></tr></thead>
+          <tbody>
+            <tr><td>المعالج</td><td class="num">4 vCPU</td></tr>
+            <tr><td>الذاكرة</td><td class="num">8 GB RAM</td></tr>
+            <tr><td>التخزين</td><td class="num">160 GB NVMe</td></tr>
+            <tr><td>المزوّد</td><td class="num">Hetzner / DigitalOcean</td></tr>
+            <tr><td>الموقع</td><td class="num">Frankfurt, DE</td></tr>
+            <tr><td>النسخ الاحتياطي</td><td class="num">Daily · 30-day retention</td></tr>
+            <tr><td>شهادة الأمان</td><td class="num">SSL/TLS (Let's Encrypt)</td></tr>
+            <tr><td>المراقبة</td><td class="num">24/7 uptime alerts</td></tr>
+          </tbody>
+        </table>
+        <p class="note">هذه السعة تكفي بارتياح لبضعة آلاف من المستخدمين وعشرات السائقين. عند النمو يمكن ترقية الخادم دون توقف طويل.</p>
+      </div>
+      <div class="card">
+        <h3>إجراءات الأمان</h3>
+        <ul class="ticks">
+          <li>تشفير كل الاتصالات عبر HTTPS</li>
+          <li>تسجيل دخول برمز تحقق ورموز وصول قابلة للإلغاء</li>
+          <li>صلاحيات منفصلة لكل دور: مدير، مشرف، محاسب، سائق، زبون</li>
+          <li>لا يرى السائق إلا الطلبات المُسندة إليه</li>
+          <li>تحديد معدّل الطلبات لمنع الإساءة وإغراق النظام</li>
+          <li>سجل تدقيق لكل موافقة وإسناد وتعديل سعر</li>
+          <li>جدار حماية على الخادم وتحديثات أمنية دورية</li>
+          <li>نسخة احتياطية يومية خارج الخادم مع اختبار استرجاع دوري</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section class="alt" id="timeline">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">08 · الجدول الزمني</span>
+      <h2>12 أسبوعاً من التوقيع إلى الإطلاق</h2>
+      <p>نعرض على الجهة المستفيدة نسخة تجريبية كل أسبوعين لتتابع التقدم وتعطي ملاحظاتها مبكراً.</p>
+    </div>
+    <div class="tl-row tl head" aria-hidden="true">
+      <div></div>
+      <div class="tl" style="margin:0"><span class="wk">1</span><span class="wk">2</span><span class="wk">3</span><span class="wk">4</span><span class="wk">5</span><span class="wk">6</span><span class="wk">7</span><span class="wk">8</span><span class="wk">9</span><span class="wk">10</span><span class="wk">11</span><span class="wk">12</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="name"><b>التحليل والتصميم</b><small>المتطلبات، الشاشات، النموذج التفاعلي</small></div>
+      <div class="bar-track"><div class="bar h" style="grid-column:1 / span 2">أسبوع 1–2</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="name"><b>الخادم والـAPI</b><small>قاعدة البيانات، الطلبات، الإسناد</small></div>
+      <div class="bar-track"><div class="bar" style="grid-column:3 / span 4">أسبوع 3–6</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="name"><b>تطبيق الطالب والسائق</b><small>Flutter لأندرويد وiOS</small></div>
+      <div class="bar-track"><div class="bar" style="grid-column:3 / span 6">أسبوع 3–8</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="name"><b>لوحة تحكم الإدارة</b><small>الموافقة، الخريطة الحية، التقارير</small></div>
+      <div class="bar-track"><div class="bar" style="grid-column:5 / span 4">أسبوع 5–8</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="name"><b>الاختبار الميداني</b><small>تجربة حقيقية مع محطة متنقلة وسائق</small></div>
+      <div class="bar-track"><div class="bar o" style="grid-column:9 / span 2">أسبوع 9–10</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="name"><b>النشر والتدريب</b><small>المتجران، تدريب الإدارة والسائقين</small></div>
+      <div class="bar-track"><div class="bar o" style="grid-column:11 / span 2">أسبوع 11–12</div></div>
+    </div>
+    <p class="note">مراجعة Apple للتطبيق تستغرق عادة من يوم إلى ثلاثة أيام، وقد تطول إن طلبت تعديلات. هذه المدة خارجة عن سيطرتنا.</p>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">09 · التكلفة</span>
+      <h2>كلفة تطوير لمرة واحدة، واشتراك سنوي ثابت</h2>
+      <p>جميع المبالغ بالدولار الأمريكي، ويمكن دفعها بما يعادلها بالدينار العراقي حسب سعر الصرف يوم الدفع.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <header><h3>كلفة التطوير — تُدفع مرة واحدة</h3><p>تشمل كل ما يلزم حتى إطلاق النظام على المتجرين.</p></header>
+        <ul class="lines">
+          <li><div><b>التحليل وتصميم الواجهات</b><small>تحليل المتطلبات، نحو 45 شاشة، نموذج تفاعلي</small></div><span class="amt">$1,200</span></li>
+          <li><div><b>تطبيق Flutter بواجهتين</b><small>واجهة الطالب + واجهة السائق، أندرويد وiOS</small></div><span class="amt">$3,600</span></li>
+          <li><div><b>الخادم والـAPI والتتبع اللحظي</b><small>Laravel API، WebSockets، الإشعارات، رمز التحقق</small></div><span class="amt">$2,400</span></li>
+          <li><div><b>لوحة تحكم الإدارة</b><small>الموافقة والإسناد، الخريطة الحية، المخزون، التقارير</small></div><span class="amt">$1,800</span></li>
+          <li><div><b>الاختبار والنشر والتدريب</b><small>اختبار ميداني، رفع التطبيق للمتجرين، تدريب الفريق</small></div><span class="amt">$800</span></li>
+        </ul>
+        <div class="total">
+          <div class="meter"><span class="lbl">Total · one-time development</span><div class="val">$9,800<small>USD</small></div></div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="hazard" aria-hidden="true"></div>
+        <span class="eyebrow">Annual subscription</span>
+        <h3>الاشتراك السنوي</h3>
+        <div class="meter" style="margin:14px 0 18px"><span class="lbl">Per year · from launch date</span><div class="val">$2,400<small>/YR</small></div></div>
+        <p>يبدأ من تاريخ الإطلاق ويُدفع مقدماً عن كل سنة. يشمل:</p>
+        <ul class="ticks">
+          <li>استضافة الخادم المخصص وتشغيله</li>
+          <li>النطاق (Domain) وشهادة SSL</li>
+          <li>النسخ الاحتياطي اليومي والمراقبة على مدار الساعة</li>
+          <li>رسوم حساب مطوّر Apple السنوية وحساب Google Play</li>
+          <li>إصلاح الأعطال دون كلفة إضافية</li>
+          <li>تحديث التطبيق ليتوافق مع إصدارات أندرويد وiOS الجديدة</li>
+          <li>تعديلات صغيرة حتى 8 ساعات شهرياً</li>
+          <li>دعم فني في أوقات العمل، واستجابة للأعطال الحرجة خلال 4 ساعات</li>
+        </ul>
+        <div class="excl"><b>لا يشمل:</b> الميزات الجديدة الكبيرة (تُسعَّر بعرض مستقل)، وكلفة رسائل رمز التحقق SMS (تُحتسب بالكلفة الفعلية)، واستخدام خرائط Google إذا تجاوز الحصة المجانية.</div>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:24px">
+      <div class="meter"><span class="lbl">Year 1 total</span><div class="val">$12,200</div></div>
+      <div class="meter"><span class="lbl">Year 2 onward</span><div class="val">$2,400<small>/YR</small></div></div>
+      <div class="meter"><span class="lbl">Warranty</span><div class="val">90<small>DAYS</small></div></div>
+    </div>
+    <p class="note">يتضمن العرض ضماناً مجانياً لمدة 90 يوماً بعد الإطلاق على أي خلل في الوظائف المتفق عليها، بالإضافة إلى ما يغطيه الاشتراك السنوي.</p>
+  </div>
+</section>
+
+<!-- ============ TERMS ============ -->
+<section class="alt" id="terms">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">10 · شروط الدفع والتسليم</span>
+      <h2>ثلاث دفعات مرتبطة بمراحل واضحة</h2>
+    </div>
+    <div class="pay-split" aria-label="جدول دفعات كلفة التطوير">
+      <div><small>عند توقيع العقد</small><b>40% · $3,920</b></div>
+      <div><small>عند تسليم النسخة التجريبية</small><b>30% · $2,940</b></div>
+      <div><small>عند الإطلاق على المتجرين</small><b>30% · $2,940</b></div>
+    </div>
+    <div class="grid g2" style="margin-top:28px">
+      <div class="card">
+        <h3>الشروط العامة</h3>
+        <ol class="terms">
+          <li>يُدفع الاشتراك السنوي الأول مع الدفعة الأخيرة، ثم يتجدد سنوياً.</li>
+          <li>يُنشر التطبيق مبدئياً عبر حسابات المطوّر على Google Play وApp Store، ويمكن نقله إلى حساب باسم الجهة المستفيدة متى طلبت ذلك.</li>
+          <li>يُسلَّم الكود المصدري بعد سداد كلفة التطوير كاملة.</li>
+          <li>أي تعديل يغيّر نطاق العمل المتفق عليه يُسعَّر ويُجدول باتفاق مكتوب.</li>
+          <li>إذا لم يُجدَّد الاشتراك يبقى النظام ملكاً للجهة المستفيدة، وتتوقف الاستضافة والصيانة بعد إشعار مسبق بثلاثين يوماً.</li>
+          <li>صلاحية هذا العرض 30 يوماً من تاريخه.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>ما نحتاجه من الجهة المستفيدة</h3>
+        <ul class="ticks">
+          <li>الشعار والهوية البصرية بصيغ عالية الدقة</li>
+          <li>أسعار الوقود وسياسة التسعير ومناطق الخدمة</li>
+          <li>أرقام الهاتف وبيانات السائقين والمركبات</li>
+          <li>شخص مسؤول للتواصل واعتماد مراحل العمل</li>
+          <li>سياسة الخصوصية وشروط الاستخدام، أو الموافقة على نموذج نعدّه</li>
+          <li>محطة متنقلة وسائق متاحان خلال أسبوعَي الاختبار الميداني</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warn" style="margin-top:24px">
+      <h3>تنبيه قبل الإطلاق التجاري</h3>
+      <p>نقل الوقود وبيعه للزبائن يحتاج موافقة شركة توزيع المنتجات النفطية والدفاع المدني، كما ورد في ملف المواصفات. ويشير الملف أيضاً إلى أن الوزن المتوقع للمحطة عند التعبئة الكاملة قد يتجاوز الحمولة المسموحة للسيارة. الحصول على الموافقات وحسم هذه الملاحظات الهندسية مسؤولية الجهة المستفيدة، ونوصي بإنجازه بالتوازي مع التطوير حتى لا يتأخر الإطلاق.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCEPTANCE ============ -->
+<section id="accept">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">11 · الموافقة</span>
+      <h2>اعتماد العرض</h2>
+      <p>بتوقيع الطرفين أدناه يُعتمد هذا العرض أساساً للعقد، ويبدأ العمل عند استلام الدفعة الأولى.</p>
+    </div>
+    <div class="sign">
+      <div><b>عن الجهة المستفيدة — بوزرجي</b><div class="ln"></div><small>الاسم والتوقيع</small><div class="ln"></div><small>التاريخ</small></div>
+      <div><b>عن فريق التطوير</b><div class="ln"></div><small>الاسم والتوقيع</small><div class="ln"></div><small>التاريخ</small></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="hazard" aria-hidden="true"></div>
+<footer>
+  <div class="wrap">
+    <span>بوزرجي — العرض الفني والمالي لمنصة توصيل الوقود · أيلول 2026</span>
+    <span>مقدّم إلى الجهة المستفيدة</span>
+  </div>
+</footer>
+
+</body>
+</html>
