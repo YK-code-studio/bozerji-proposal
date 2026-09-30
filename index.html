@@ -254,35 +254,10 @@ ol.terms li{margin-bottom:10px;color:#343A42}
 .warn h3{color:var(--danger);font-size:18px}
 .warn p{color:#4A3430;margin:0}
 
-/* sign */
-@media (max-width:640px){}
 
 footer{background:var(--asphalt);color:#8C94A0;font-size:14px;padding:28px 0}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
-@page{size:A4;margin:12mm 10mm}
-@media print{
-  tr,li,.node,.meter,.rule{break-inside:avoid}
-  thead{display:table-header-group}
-  h2,h3{break-after:avoid}
-  .hero-media img{max-height:320px;object-fit:cover}
-  .topbar,.print-btn{display:none}
-  body{background:#fff;font-size:12.5pt}
-  section{padding:26px 0}
-  .sec-head{break-inside:avoid;break-after:avoid;margin-bottom:22px}
-  .summary>div:first-child{break-inside:avoid}
-  #timeline .wrap,.price-card,.pay-split{break-inside:avoid}
-  .spec td.num{white-space:normal;word-break:break-word}
-  .grid.g2{grid-template-columns:1fr}
-  .hazard{height:8px}
-  .hero .wrap{padding:30px 24px}
-  .card,.price-card,.sub-card,.tl-row{break-inside:avoid}
-  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  .tl-row{grid-template-columns:170px 1fr}
-  .tl-row.tl.head{display:grid}
-  .bar{padding:0 6px;font-size:11px}
-}
 
 /* ---------- interactive demo ---------- */
 #demo{background:var(--asphalt);color:#fff}
@@ -381,15 +356,208 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .stage-now{display:none;margin:0;color:#DDE1E6;font-size:14px}
 @media (max-width:1000px){.stage-now{display:block}}
 .demo-print{display:none}
+
+/* ---------- signature block (screen + print) ---------- */
+.sign-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.sign-grid{grid-template-columns:1fr}}
+.party{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px}
+.party h3{font-size:18px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--orange)}
+.party dl{margin:0;display:grid;gap:0}
+.party .row{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:end;padding:10px 0;border-bottom:1px solid var(--line)}
+.party dt{font-weight:600;color:#343A42;font-size:15px}
+.party dd{margin:0;border-bottom:1px dotted #9AA0A8;min-height:30px}
+.party .row.sig dd{min-height:84px}
+.party .stamp{margin-top:16px;border:1.5px dashed #B9BEB6;border-radius:12px;height:110px;display:grid;place-items:center;color:var(--muted);font-size:14px}
+@media (max-width:640px){.party .row{grid-template-columns:1fr;gap:4px}}
+
+/* ================= PRINT (A4 · RTL) ================= */
+@page{
+  size:A4;
+  margin:18mm 16mm 20mm 16mm;
+  @bottom-left{direction:rtl;content:"صفحة " counter(page) " من " counter(pages);font-family:"IBM Plex Sans Arabic",sans-serif;font-size:8.5pt;color:#5E6570}
+  @bottom-right{direction:rtl;content:"بوزرجي — العرض الفني والمالي";font-family:"IBM Plex Sans Arabic",sans-serif;font-size:8.5pt;color:#5E6570}
+}
+@page:first{
+  margin:0;
+  @bottom-left{content:none}
+  @bottom-right{content:none}
+}
 @media print{
-  #demo{background:#fff;color:var(--ink)}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{background:#fff}
+  body{font-size:10.5pt;line-height:1.75;color:var(--ink)}
+  .wrap{max-width:none;padding:0}
+  a{color:var(--orange-deep);text-decoration:none}
+
+  /* hide screen-only UI */
+  .topbar,.print-btn,.nav,footer,main+.hazard,.demo-live,.demo-reset,.demo-tabs{display:none!important}
+
+  /* remove anything that can clip or float */
+  .tbl-scroll{overflow:visible!important;border-radius:0}
+  .hero-meter{position:static!important;margin-top:10pt;min-width:0}
+  .log{max-height:none;overflow:visible}
+  img{max-width:100%}
+
+  /* ---- cover page ---- */
+  .hero{height:296mm;display:flex;flex-direction:column;justify-content:space-between;break-after:page;overflow:hidden}
+  .hero .wrap{display:block;padding:26mm 18mm 0!important}
+  .hero h1{font-size:40pt;margin:8pt 0 12pt}
+  .hero p.lead{font-size:13pt;max-width:none;margin-bottom:14pt}
+  .hero .meta-row{margin-bottom:16pt}
+  .hero-media img{max-height:125mm;width:100%;object-fit:cover;box-shadow:none;border-radius:10px}
+  .hero-media figcaption{font-size:9pt}
+  .hero .hazard{height:10mm}
+
+  /* ---- sections & type ---- */
+  section,section.alt{background:#fff!important;border:0;padding:0 0 16pt}
+  h2{font-size:17pt;line-height:1.35;margin:4pt 0 6pt}
+  h3{font-size:12pt;margin-bottom:5pt}
+  .sec-head{max-width:none;margin-bottom:12pt;break-inside:avoid;break-after:avoid}
+  .sec-head p{font-size:10.5pt}
+  .eyebrow,.eyebrow.ar,.sec-head .eyebrow{font-size:9pt}
+  h2,h3,h4{break-after:avoid}
+  p,li{orphans:3;widows:3}
+  .card{padding:12pt 14pt;border-radius:10px}
+  section.alt .card,.card{background:#fff}
+  .grid{gap:10pt}
+  .note{font-size:9.5pt;margin-top:8pt}
+
+  /* section starts */
+  #system,#pricing,#accept{break-before:page}
+
+  /* ---- keep-together blocks ---- */
+  .card,.rule,.party,.price-card,.sub-card,.pay-split,.warn,.meter,.node,.scope-out,.demo-print,
+  .keep,.stats,.summary>div,.fuel,.dsum,.tl-row,.tl-head,.arch,.stack,.flow li,.maps-grid>.card,.sign-grid{break-inside:avoid}
+  table{break-inside:avoid}
+  tr,td,th{break-inside:avoid}
+  thead{display:table-header-group}
+  .keep>h3{break-after:avoid}
+
+  /* ---- summary ---- */
+  .summary{grid-template-columns:1.5fr 1fr;gap:16pt}
+  .summary .big{font-size:11.5pt}
+  .stats .meter .val{font-size:18pt}
+  .meter{padding:7pt 10pt}
+  .meter .val{font-size:20pt}
+
+  /* ---- vehicle ---- */
+  #vehicle .grid.g2{grid-template-columns:1fr 1fr}
+
+  /* ---- interfaces ---- */
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:1fr 1fr}
+  .iface{padding-top:12pt}
+  .iface h3{font-size:12.5pt}
+  .iface.dark{background:#fff;color:var(--ink);border:1px solid var(--line);border-top:3px solid var(--orange)}
+  .iface.dark .who,.iface.dark ul.ticks li{color:#343A42}
+  .iface.dark .tag{color:var(--orange-deep)}
+  ul.ticks li{margin-bottom:4pt;font-size:10pt}
+  ul.cross li{margin-bottom:4pt;font-size:10pt}
+
+  /* ---- scope ---- */
+  .scope-grid{grid-template-columns:1fr;gap:10pt}
+  .scope-grid ul.ticks,.scope-grid ul.cross{column-count:2;column-gap:18pt}
+  .scope-grid ul.ticks li,.scope-grid ul.cross li{break-inside:avoid}
+  .scope-out .note{margin:0 0 6pt!important}
+
+  /* ---- order flow: compact list ---- */
+  .flow{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);grid-auto-flow:column;gap:6pt 16pt}
+  .flow::before{display:none}
+  .flow li{display:grid;grid-template-columns:26pt 1fr;gap:8pt;text-align:start;padding:0;align-items:start}
+  .flow .dot{width:24pt;height:24pt;margin:0;font-size:10pt;border-width:2px}
+  .flow b{font-size:10.5pt;margin:0}
+  .flow small{font-size:9.5pt}
+  .flow .actor{font-size:8.5pt;margin-top:2pt}
+
+  /* ---- demo summary ---- */
+  #demo{background:#fff!important;color:var(--ink)}
   #demo .sec-head p{display:none}
   #demo .sec-head .eyebrow{color:var(--orange-deep)}
-  .demo-live{display:none!important}
-  .demo-print{display:block;font-size:12pt}
-  .demo-print ol{margin:8px 0 0;padding-inline-start:22px}
-  .demo-print li{margin-bottom:6px}
-  .demo-print{color:var(--ink)}
+  .demo-print{display:block;border:1px solid var(--line);border-radius:10px;padding:12pt 14pt;font-size:10.5pt}
+  .demo-print ol{margin:6pt 0 0;padding-inline-start:18pt}
+  .demo-print li{margin-bottom:4pt}
+
+  /* ---- rules ---- */
+  #rules .grid.g2{grid-template-columns:repeat(3,1fr)}
+  .rule{grid-template-columns:1fr;gap:6pt;align-content:start}
+  .rule h3{font-size:11pt}
+  .rule p{font-size:9.5pt}
+  .rule .ico{width:30pt;height:30pt;font-size:10pt}
+
+  /* ---- architecture ---- */
+  .arch{grid-template-columns:1fr 16pt 1.2fr 16pt 1fr;gap:8pt}
+  .arrow{transform:none;height:auto;font-size:14pt}
+  .node{padding:7pt 9pt;font-size:9.5pt}
+  .node b{font-size:10pt}
+  .node span{font-size:8.5pt}
+  .stack{margin-top:10pt}
+  .stack span{font-size:8.5pt;padding:2pt 6pt}
+
+  /* ---- hosting ---- */
+  #hosting .grid.g2{grid-template-columns:1fr 1fr}
+  .spec{font-size:9.5pt}
+  .spec th,.spec td{padding:6pt 8pt}
+  .spec td.num{white-space:normal;word-break:break-word;font-size:9.5pt}
+  .spec td.num.ar{font-size:9.5pt}
+
+  /* ---- timeline ---- */
+  .tl-row{grid-template-columns:130pt 1fr;padding:4pt 0}
+  #timeline .wrap{break-inside:avoid}
+  .tl-row.tl.head{display:grid}
+  .tl .wk{font-size:8pt}
+  .bar-track{height:20pt}
+  .bar{font-size:8.5pt;padding:0 5pt}
+  .tl-row .name b{font-size:10.5pt}
+  .tl-row .name small{font-size:9pt}
+
+  /* ---- pricing ---- */
+  .price-grid{grid-template-columns:1fr 1fr;gap:12pt}
+  .price-card header{padding:12pt 14pt 4pt}
+  .lines{padding:0 14pt}
+  .lines li{padding:7pt 0}
+  .lines li div small{font-size:9pt}
+  .price-card .total{padding:10pt 14pt 14pt}
+  .sub-card{background:#fff;color:var(--ink);border:1px solid var(--line);padding:14pt}
+  .sub-card .hazard{height:5pt}
+  .sub-card p,.sub-card .excl{color:#343A42}
+  .sub-card .excl{border-top-color:var(--line);font-size:9pt}
+  .sub-table{font-size:10pt}
+  .sub-table th{color:var(--ink)}
+  .sub-table th small{color:var(--muted);font-size:8.5pt}
+  .sub-table td.amt{color:var(--ink);font-size:11pt}
+  .sub-table td.amt small{color:var(--muted)}
+  .sub-table th,.sub-table td{border-bottom-color:var(--line);padding:6pt 0}
+  .sub-table tr.sum th,.sub-table tr.sum td{color:var(--orange-deep)}
+  .keep{margin-top:14pt}
+  .keep>h3{margin-top:0!important}
+  table.status{font-size:9.5pt}
+  table.status th,table.status td{padding:6pt 8pt}
+  table.status thead{display:table-header-group}
+  table.status tbody tr{display:table-row;padding:0;border:0}
+  table.status tbody td{display:table-cell;padding:6pt 8pt;border-bottom:1px solid var(--line)}
+  table.status tbody td[data-label]::before{content:none}
+  .maps-grid{grid-template-columns:1fr;gap:10pt;margin-top:14pt}
+  .src{font-size:8.5pt}
+  #pricing .grid.g3{grid-template-columns:repeat(3,1fr);margin-top:12pt!important}
+
+  /* ---- terms ---- */
+  .pay-split{grid-template-columns:40fr 30fr 30fr;margin:8pt 0}
+  .pay-split b{font-size:14pt}
+  #terms .grid.g2{grid-template-columns:1fr 1fr;margin-top:12pt!important}
+  ol.terms li{font-size:10pt;margin-bottom:5pt}
+  .warn{padding:10pt 12pt;margin-top:12pt!important}
+
+  /* ---- signatures ---- */
+  #accept{padding-bottom:0}
+  #accept .wrap{break-inside:avoid}
+  .sign-grid{grid-template-columns:1fr 1fr;gap:12pt}
+  .party{padding:12pt 14pt}
+  .party h3{font-size:12pt}
+  .party .row{grid-template-columns:92pt 1fr;padding:7pt 0}
+  .party dt{font-size:10pt}
+  .party dd{min-height:20pt}
+  .party .row.sig dd{min-height:62pt}
+  .party .stamp{height:72pt;font-size:9.5pt}
 }
 </style>
 </head>
@@ -826,31 +994,31 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     </div>
     <div class="tl-row tl head" aria-hidden="true">
       <div></div>
-      <div class="tl" style="margin:0"><span class="wk">حتى ½ شهر</span><span class="wk">1 شهر</span><span class="wk">1½ شهر</span><span class="wk">2 شهر</span><span class="wk">2½ شهر</span><span class="wk">3 شهر</span><span class="wk">3½ شهر</span></div>
+      <div class="tl" style="margin:0"><span class="wk">حتى <bdi dir="ltr">½</bdi> شهر</span><span class="wk">1 شهر</span><span class="wk"><bdi dir="ltr">1½</bdi> شهر</span><span class="wk">2 شهر</span><span class="wk"><bdi dir="ltr">2½</bdi> شهر</span><span class="wk">3 شهر</span><span class="wk"><bdi dir="ltr">3½</bdi> شهر</span></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>التحليل والتصميم</b><small>المتطلبات، الشاشات، النموذج التفاعلي</small></div>
-      <div class="bar-track"><div class="bar h" style="grid-column:1 / span 1">0 – ½ شهر</div></div>
+      <div class="bar-track"><div class="bar h" style="grid-column:1 / span 1"><bdi dir="ltr">0–½</bdi>&nbsp;شهر</div></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>الخادم والـAPI</b><small>قاعدة البيانات، الطلبات، الإسناد</small></div>
-      <div class="bar-track"><div class="bar" style="grid-column:2 / span 3">½ – 2 شهر</div></div>
+      <div class="bar-track"><div class="bar" style="grid-column:2 / span 3"><bdi dir="ltr">½–2</bdi>&nbsp;شهر</div></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>تطبيق الطالب والسائق</b><small>Flutter لأندرويد وiOS</small></div>
-      <div class="bar-track"><div class="bar" style="grid-column:2 / span 4">½ – 2½ شهر</div></div>
+      <div class="bar-track"><div class="bar" style="grid-column:2 / span 4"><bdi dir="ltr">½–2½</bdi>&nbsp;شهر</div></div>
     </div>
     <div class="tl-row">
-      <div class="name"><b>لوحة تحكم الإدارة</b><small>الموافقة، الخريطة الحية، التقارير</small></div>
-      <div class="bar-track"><div class="bar" style="grid-column:3 / span 3">1 – 2½ شهر</div></div>
+      <div class="name"><b>لوحة تحكم الإدارة</b><small>المراجعة، الإسناد اليدوي، التقارير الأساسية</small></div>
+      <div class="bar-track"><div class="bar" style="grid-column:3 / span 3"><bdi dir="ltr">1–2½</bdi>&nbsp;شهر</div></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>الاختبار الميداني</b><small>تجربة حقيقية مع محطة متنقلة وسائق</small></div>
-      <div class="bar-track"><div class="bar o" style="grid-column:6 / span 1">2½ – 3 شهر</div></div>
+      <div class="bar-track"><div class="bar o" style="grid-column:6 / span 1"><bdi dir="ltr">2½–3</bdi>&nbsp;شهر</div></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>النشر والتدريب</b><small>المتجران، وجلستا تدريب عن بُعد</small></div>
-      <div class="bar-track"><div class="bar o" style="grid-column:7 / span 1">3 – 3½ شهر</div></div>
+      <div class="bar-track"><div class="bar o" style="grid-column:7 / span 1"><bdi dir="ltr">3–3½</bdi>&nbsp;شهر</div></div>
     </div>
     <p class="note">مراجعة Apple للتطبيق تستغرق عادة من يوم إلى ثلاثة أيام، وقد تطول إن طلبت تعديلات. هذه المدة خارجة عن سيطرتنا.</p>
   </div>
@@ -895,7 +1063,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </div>
     </div>
 
-    <h3 style="margin-top:40px">ما هو داخل الاشتراك وما هو خارجه</h3>
+    <div class="keep" style="margin-top:40px">
+    <h3>ما هو داخل الاشتراك وما هو خارجه</h3>
     <div class="tbl-scroll">
       <table class="status">
         <thead><tr><th>البند</th><th>الوضع</th><th>التفاصيل</th></tr></thead>
@@ -910,9 +1079,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         </tbody>
       </table>
     </div>
+    </div>
 
     <div class="maps-grid">
-      <div>
+      <div class="keep">
         <h3>تكلفة خرائط Google</h3>
         <div class="tbl-scroll">
           <table class="status maps">
@@ -959,7 +1129,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <p>هذه الدفعات تخص كلفة التطوير ($4,000) فقط. الاشتراك السنوي بند منفصل.</p>
     </div>
     <div class="pay-split" aria-label="جدول دفعات كلفة التطوير">
-      <div><small>عند توقيع العقد</small><b>40% · $1,600</b></div>
+      <div><small>عند اعتماد العرض وتوقيع الطرفين وبدء العمل</small><b>40% · $1,600</b></div>
       <div><small>عند تسليم النسخة التجريبية</small><b>30% · $1,200</b></div>
       <div><small>عند الإطلاق على المتجرين</small><b>30% · $1,200</b></div>
     </div>
@@ -993,6 +1163,41 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="warn" style="margin-top:24px">
       <h3>تنبيه قبل الإطلاق التجاري</h3>
       <p>نقل الوقود وبيعه للزبائن يحتاج موافقة شركة توزيع المنتجات النفطية والدفاع المدني، كما ورد في ملف المواصفات. ويشير الملف أيضاً إلى أن الوزن المتوقع للمحطة عند التعبئة الكاملة قد يتجاوز الحمولة المسموحة للسيارة. الحصول على الموافقات وحسم هذه الملاحظات الهندسية مسؤولية الجهة المستفيدة، ونوصي بإنجازه بالتوازي مع التطوير حتى لا يتأخر الإطلاق.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCEPTANCE ============ -->
+<section id="accept">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">13 · اعتماد العرض</span>
+      <h2>اعتماد العرض وتوقيع الطرفين</h2>
+      <p>بتوقيع الطرفين أدناه يُعتمد هذا العرض بما يتضمنه من نطاق وأسعار ومدة وشروط، ويبدأ العمل عند استلام الدفعة الأولى.</p>
+    </div>
+    <div class="sign-grid">
+      <div class="party">
+        <h3>الطرف الأول: مقدم الخدمة</h3>
+        <dl>
+          <div class="row"><dt>الاسم أو اسم الجهة</dt><dd></dd></div>
+          <div class="row"><dt>اسم الممثل</dt><dd></dd></div>
+          <div class="row"><dt>الصفة</dt><dd></dd></div>
+          <div class="row sig"><dt>التوقيع</dt><dd></dd></div>
+          <div class="row"><dt>التاريخ</dt><dd></dd></div>
+        </dl>
+        <div class="stamp">الختم (عند الحاجة)</div>
+      </div>
+      <div class="party">
+        <h3>الطرف الثاني: الجهة المستفيدة</h3>
+        <dl>
+          <div class="row"><dt>اسم الجهة</dt><dd></dd></div>
+          <div class="row"><dt>اسم الممثل</dt><dd></dd></div>
+          <div class="row"><dt>الصفة</dt><dd></dd></div>
+          <div class="row sig"><dt>التوقيع</dt><dd></dd></div>
+          <div class="row"><dt>التاريخ</dt><dd></dd></div>
+        </dl>
+        <div class="stamp">الختم (عند الحاجة)</div>
+      </div>
     </div>
   </div>
 </section>
