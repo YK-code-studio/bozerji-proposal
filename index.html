@@ -127,6 +127,7 @@ ul.ticks li::before{content:"";position:absolute;inset-inline-start:0;top:.75em;
   table.status tbody tr:last-child{border-bottom:0}
   table.status tbody td{display:block;padding:3px 0;border:0}
   table.status tbody td:first-child{font-weight:600}
+  table.status tbody td[data-label]::before{content:attr(data-label) ": ";color:var(--muted);font-weight:600}
   .sub-table td.amt{font-size:15px}
 }
 
@@ -225,9 +226,18 @@ ul.ticks li::before{content:"";position:absolute;inset-inline-start:0;top:.75em;
 .status tbody tr:last-child td{border-bottom:0}
 .status .pill{display:inline-block;font-size:12.5px;border-radius:999px;padding:1px 10px;white-space:nowrap}
 .pill.in{background:#E3F6EA;color:#1C6B3D}.pill.out{background:#FDECE9;color:#9B2B1F}.pill.opt{background:#FFF3D6;color:#7A5600}
-.decide{border-inline-start:5px solid var(--hazard);background:#FFF9E6;border-radius:10px;padding:18px 20px;margin-top:24px}
-.decide h3{font-size:18px}.decide p{color:#4A4330;margin:0}
-.node.pending{border-style:dashed;border-color:var(--steel);background:transparent}
+.scope-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:start}
+@media (max-width:900px){.scope-grid{grid-template-columns:1fr}}
+.scope-out{background:var(--paper);border:1px dashed #B9BEB6;border-radius:var(--radius);padding:26px}
+section.alt .scope-out{background:#fff}
+ul.cross{list-style:none;padding:0;margin:0}
+ul.cross li{position:relative;padding-inline-start:22px;margin-bottom:8px;color:#4A5059}
+ul.cross li::before{content:"";position:absolute;inset-inline-start:2px;top:.8em;width:11px;height:2px;background:var(--steel)}
+.auth{margin-top:24px}
+.maps-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:24px;align-items:start;margin-top:40px}
+@media (max-width:900px){.maps-grid{grid-template-columns:1fr}}
+.src{font-size:13.5px;color:var(--muted);margin-top:10px}
+.src a{word-break:break-all}
 
 /* terms */
 ol.terms{margin:0;padding-inline-start:22px}
@@ -245,20 +255,26 @@ ol.terms li{margin-bottom:10px;color:#343A42}
 .warn p{color:#4A3430;margin:0}
 
 /* sign */
-.sign{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
-.sign div{border:1px dashed #B9BEB6;border-radius:12px;padding:20px;min-height:150px}
-.sign b{font-family:var(--display)}
-.sign .ln{border-bottom:1px solid #B9BEB6;height:34px;margin-top:10px}
-.sign small{color:var(--muted)}
-@media (max-width:640px){.sign{grid-template-columns:1fr}}
+@media (max-width:640px){}
 
 footer{background:var(--asphalt);color:#8C94A0;font-size:14px;padding:28px 0}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
+@page{size:A4;margin:12mm 10mm}
 @media print{
+  tr,li,.node,.meter,.rule{break-inside:avoid}
+  thead{display:table-header-group}
+  h2,h3{break-after:avoid}
+  .hero-media img{max-height:320px;object-fit:cover}
   .topbar,.print-btn{display:none}
   body{background:#fff;font-size:12.5pt}
-  section{padding:36px 0;break-inside:avoid-page}
+  section{padding:26px 0}
+  .sec-head{break-inside:avoid;break-after:avoid;margin-bottom:22px}
+  .summary>div:first-child{break-inside:avoid}
+  #timeline .wrap,.price-card,.pay-split{break-inside:avoid}
+  .spec td.num{white-space:normal;word-break:break-word}
+  .grid.g2{grid-template-columns:1fr}
+  .hazard{height:8px}
   .hero .wrap{padding:30px 24px}
   .card,.price-card,.sub-card,.tl-row{break-inside:avoid}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -293,7 +309,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div>
       <span class="eyebrow">Technical &amp; Financial Proposal</span>
       <h1>منصة <em>بوزرجي</em><br>لطلب الوقود وتوصيله</h1>
-      <p class="lead">تطبيق واحد لأندرويد وiOS فيه واجهتان: واجهة لمن يطلب الوقود وواجهة للسائق الذي يوصله، ولوحة تحكم ويب للإدارة توافق على الطلبات وترسلها إلى المحطة المتنقلة الأقرب.</p>
+      <p class="lead">تطبيق واحد لأندرويد وiOS فيه واجهتان: واجهة لمن يطلب الوقود وواجهة للسائق الذي يوصله، ولوحة تحكم ويب للإدارة توافق على الطلبات وتُسندها يدوياً إلى السائق المناسب.</p>
       <div class="meta-row">
         <span class="chip">التاريخ: <b>أيلول 2026</b></span>
         <span class="chip">الإصدار: <b>1.0</b></span>
@@ -320,8 +336,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div>
       <span class="eyebrow ar">01 · الملخص التنفيذي</span>
       <h2>ماذا سنبني ولماذا</h2>
-      <p class="big">تمتلك الجهة المستفيدة محطات وقود متنقلة تحمل البنزين والكاز. ينقصها نظام يجمع الطلبات من الزبائن، ويعرضها على الإدارة للموافقة، ثم يوجّهها إلى السائق المختص مع تتبّع مباشر حتى تسليم الوقود واستلام المبلغ نقداً.</p>
-      <p>يغطي هذا العرض تحليل المتطلبات، والتصميم، والتطوير، والنشر على Google Play وApp Store، والاستضافة، والصيانة السنوية، ضمن كلفة تطوير تُدفع مرة واحدة واشتراك سنوي مفصّل البنود.</p>
+      <p class="big">تمتلك الجهة المستفيدة محطات وقود متنقلة تحمل البنزين والكاز. ينقصها نظام يجمع الطلبات من الزبائن، ويعرضها على الإدارة للموافقة، ثم تُسندها الإدارة يدوياً إلى السائق المختص، مع عرض موقعه أثناء الطلب حتى تسليم الوقود واستلام المبلغ نقداً.</p>
+      <p>يغطي هذا العرض نسخة الإطلاق الأولى بنطاق محدد: تحليل المتطلبات، والتصميم، والتطوير، والاختبار، والنشر على Google Play وApp Store، والتدريب، مقابل كلفة تطوير تُدفع مرة واحدة. الاستضافة والدعم الفني بند منفصل في اشتراك سنوي مفصّل البنود.</p>
     </div>
     <div class="stats" aria-label="أرقام رئيسية">
       <div class="meter"><span class="lbl">Interfaces</span><div class="val">3</div></div>
@@ -358,7 +374,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="grid" style="gap:16px">
         <div class="card fuel">
           <div class="placard" aria-hidden="true"><span>UN<br>1203</span></div>
-          <div><h3>خزان البنزين — 500 لتر</h3><p>مادة قابلة للاشتعال من الفئة 3. يلتزم السائق بقائمة السلامة قبل كل تعبئة.</p></div>
+          <div><h3>خزان البنزين — 500 لتر</h3><p>مادة قابلة للاشتعال من الفئة 3. يؤكد السائق قائمة تحقق السلامة قبل كل تعبئة.</p></div>
         </div>
         <div class="card fuel">
           <div class="placard" aria-hidden="true" style="background:#D8761A"><span>UN<br>1202</span></div>
@@ -366,7 +382,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         </div>
         <div class="card">
           <h3>ماذا يعني ذلك للتطبيق؟</h3>
-          <p>كل محطة متنقلة تحمل مخزوناً محدوداً من كل نوع. لذلك يتتبّع النظام الكمية المتبقية في كل خزان، ولا يُسند إلى السائق طلباً يتجاوز ما تبقّى لديه.</p>
+          <p>كل محطة متنقلة تحمل مخزوناً محدوداً من كل نوع. لذلك يعرض النظام الكمية المتبقية في كل خزان حسب الحركات المسجّلة، لتراعيها الإدارة عند إسناد الطلب يدوياً.</p>
         </div>
       </div>
     </div>
@@ -379,7 +395,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="sec-head">
       <span class="eyebrow">03 · مكونات النظام</span>
       <h2>تطبيق واحد بواجهتين، ولوحة تحكم للإدارة</h2>
-      <p>يفتح التطبيق الواجهة المناسبة لدور المستخدم تلقائياً بعد تسجيل الدخول. حسابات السائقين تُنشأ من لوحة الإدارة فقط. طريقة تسجيل الدخول لم تُحسم بعد (انظر الملاحظة أدناه).</p>
+      <p>يفتح التطبيق الواجهة المناسبة لدور المستخدم تلقائياً بعد تسجيل الدخول بالبريد الإلكتروني وكلمة المرور. العميل ينشئ حسابه بنفسه، وحسابات السائقين تنشئها الإدارة فقط.</p>
     </div>
     <div class="grid g3">
       <article class="card iface">
@@ -387,14 +403,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <h3>واجهة طالب الوقود</h3>
         <p class="who">أفراد، مولّدات، شركات، ومواقع إنشاء.</p>
         <ul class="ticks">
-          <li>إنشاء حساب وتسجيل الدخول (الطريقة قيد الحسم)</li>
+          <li>إنشاء حساب بالاسم والبريد الإلكتروني ورقم الهاتف وكلمة المرور</li>
+          <li>الدخول بالبريد الإلكتروني وكلمة المرور</li>
           <li>اختيار نوع الوقود والكمية باللتر</li>
-          <li>تحديد الموقع على الخريطة وحفظ العناوين</li>
-          <li>طلب فوري أو موعد لاحق</li>
+          <li>تحديد موقع التسليم بدبوس على الخريطة لكل طلب</li>
+          <li>طلب فوري ضمن أوقات التشغيل</li>
           <li>عرض السعر الكلي قبل التأكيد</li>
-          <li>متابعة حالة الطلب وموقع السائق مباشرة</li>
+          <li>الاطلاع على نص يوضح مناطق الخدمة</li>
+          <li>متابعة حالة الطلب وموقع السائق أثناء الطلب النشط</li>
+          <li>إشعار عند تغيّر حالة الطلب</li>
           <li>الدفع نقداً عند الاستلام</li>
-          <li>سجل الطلبات والفواتير وتقييم الخدمة</li>
+          <li>سجل الطلبات وإيصالاتها</li>
         </ul>
       </article>
       <article class="card iface">
@@ -402,13 +421,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <h3>واجهة السائق الناقل</h3>
         <p class="who">سائقو المحطات المتنقلة المعتمدون.</p>
         <ul class="ticks">
+          <li>الدخول بحساب تنشئه الإدارة</li>
           <li>تبديل الحالة بين متاح وغير متاح</li>
-          <li>استلام الطلبات المُسندة مع إشعار فوري</li>
-          <li>الملاحة إلى الزبون عبر خرائط Google</li>
-          <li>قائمة فحص السلامة قبل التعبئة</li>
-          <li>إدخال قراءة العدّاد الفعلية بعد التعبئة</li>
+          <li>استلام الطلبات المُسندة إليه</li>
+          <li>إشعار عند إسناد طلب إليه</li>
+          <li>فتح موقع الزبون في تطبيق خرائط Google للملاحة</li>
+          <li>تأكيد قائمة تحقق السلامة قبل تسجيل بدء التعبئة</li>
+          <li>إدخال الكمية المسلّمة وقراءة العدّاد يدوياً</li>
           <li>تأكيد استلام المبلغ النقدي</li>
-          <li>عرض المخزون المتبقي في كل خزان</li>
+          <li>عرض المخزون المتبقي في كل خزان حسب الحركات المسجّلة</li>
           <li>ملخص يومي للطلبات والنقد المستلم</li>
         </ul>
       </article>
@@ -418,69 +439,140 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <p class="who">مدير العمليات والمحاسبة وخدمة الزبائن.</p>
         <ul class="ticks">
           <li>مراجعة الطلبات الجديدة والموافقة عليها أو رفضها</li>
-          <li>إسناد الطلب إلى السائق الأقرب مع اقتراح تلقائي</li>
-          <li>خريطة حية لمواقع المحطات المتنقلة</li>
-          <li>إدارة السائقين والمركبات والخزانات</li>
-          <li>تحديد أسعار الوقود ومناطق الخدمة</li>
-          <li>تسوية النقد اليومية مع كل سائق</li>
-          <li>تقارير المبيعات والكميات والأداء</li>
-          <li>صلاحيات حسب الدور وسجل للعمليات</li>
+          <li>متابعة الطلب وموقع السائق أثناء تنفيذه</li>
+          <li>تسجيل حركات المخزون يدوياً (تزوّد، تسليم، تصحيح)</li>
+          <li>إسناد الطلب يدوياً إلى السائق المناسب</li>
+                    <li>إدارة السائقين والمركبات والخزانات</li>
+          <li>تحديد أسعار الوقود وأوقات التشغيل ونص مناطق الخدمة</li>
+          <li>تنبيه عند نزول المخزون المسجّل عن حد تحدده الإدارة لكل خزان</li>
+                    <li>تقارير أساسية للطلبات والكميات والنقد حسب الفترة والسائق</li>
+          <li>حسابات الإدارة بصلاحيات محددة لكل دور</li>
+          <li>سجل أساسي بمن غيّر حالة الطلب أو أسنده أو عدّل الكمية، مع التاريخ والوقت</li>
         </ul>
       </article>
     </div>
-    <div class="decide">
-      <h3>قرار مطلوب: طريقة تسجيل الدخول</h3>
-      <p>خدمة رمز التحقق عبر الرسائل (OTP) غير متوفرة حالياً وغير مشمولة في هذا العرض. تُحسم طريقة تسجيل الدخول مع الجهة المستفيدة في مرحلة التحليل. إذا اعتُمد OTP فإنه يحتاج إلى التعاقد مع مزوّد رسائل، وتُحتسب كلفة ربطه وكلفة الرسائل بشكل مستقل عن هذا العرض.</p>
+    <div class="grid g2 auth">
+      <div class="card">
+        <h3>إنشاء الحساب وتسجيل الدخول</h3>
+        <ul class="ticks">
+          <li>العميل ينشئ حساباً بالاسم والبريد الإلكتروني ورقم الهاتف وكلمة المرور.</li>
+          <li>الدخول بالبريد الإلكتروني وكلمة المرور لجميع الأدوار.</li>
+          <li>تأكيد البريد الإلكتروني برابط آمن يصل إلى البريد، دون إدخال أي رمز.</li>
+          <li>استعادة كلمة المرور برابط آمن يصل إلى البريد.</li>
+          <li>رقم الهاتف وسيلة تواصل مع العميل، ولا يُعرض بوصفه رقماً موثّقاً.</li>
+          <li>لا يوجد تسجيل عام للسائقين؛ الإدارة تنشئ حساباتهم.</li>
+          <li>حسابات الإدارة تُنشأ بصلاحيات محددة لكل دور.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>حماية الروابط والدخول</h3>
+        <ul class="ticks">
+          <li>رابط التأكيد ورابط الاستعادة صالحان لمدة 60 دقيقة، ويُستخدم كل منهما مرة واحدة فقط.</li>
+          <li>طلب رابط جديد يُبطل الرابط السابق.</li>
+          <li>حد لمحاولات الدخول الفاشلة لكل بريد وعنوان IP، مع إيقاف مؤقت بعد تجاوزه.</li>
+          <li>حد لطلبات الاستعادة: طلب واحد كل دقيقة لكل بريد، وحد يومي لكل عنوان IP.</li>
+          <li>رسالة الاستعادة لا تكشف إن كان البريد مسجلاً أم لا.</li>
+          <li>كلمات المرور مخزّنة بتشفير أحادي الاتجاه (bcrypt).</li>
+          <li>تُرسل الرسائل عبر خدمة Resend، لأن DigitalOcean يحجب منافذ إرسال البريد على خوادمه.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCOPE ============ -->
+<section class="alt" id="scope">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">04 · نطاق نسخة الإطلاق</span>
+      <h2>ما تغطيه كلفة التطوير البالغة $4,000</h2>
+      <p>هذا هو النطاق المتفق عليه لنسخة الإطلاق الأولى. أي ميزة خارج هذه القائمة توسعة لاحقة تُسعَّر بصورة مستقلة.</p>
+    </div>
+    <div class="scope-grid">
+      <div class="card">
+        <h3>داخل النطاق</h3>
+        <ul class="ticks">
+          <li>تطبيق Flutter على Android وiOS بواجهتي العميل والسائق.</li>
+          <li>لوحة إدارة لمراجعة الطلبات والموافقة عليها وإسنادها للسائقين ومتابعتها.</li>
+          <li>الدفع النقدي عند الاستلام.</li>
+          <li>تسجيل الكمية المسلّمة وقراءات العدّاد وحركات المخزون يدوياً.</li>
+          <li>عرض موقع السائق أثناء الطلب النشط فقط.</li>
+          <li>تحديد موقع العميل بدبوس على الخريطة، ومسار أساسي لحساب المسافة ووقت الوصول التقديري.</li>
+          <li>طلبات فورية ضمن أوقات التشغيل، ونص يوضح مناطق الخدمة تتحقق منه الإدارة عند مراجعة الطلب.</li>
+          <li>إشعارات لإسناد الطلب إلى السائق ولتغيّر حالة الطلب للعميل.</li>
+          <li>قائمة تحقق سلامة بسيطة يؤكدها السائق قبل تسجيل بدء التعبئة.</li>
+          <li>تنبيه في لوحة الإدارة عند نزول المخزون المسجّل عن حد محدد لكل خزان.</li>
+          <li>سجل أساسي بمن غيّر حالة الطلب أو أسنده أو عدّل الكمية، مع التاريخ والوقت.</li>
+          <li>تقارير أساسية للطلبات والكميات والمبالغ النقدية حسب الفترة والسائق.</li>
+          <li>إنشاء الحساب وتسجيل الدخول بالبريد الإلكتروني وكلمة المرور، مع روابط التأكيد والاستعادة.</li>
+          <li>الاختبار الميداني والنشر على المتجرين.</li>
+          <li>تدريب عن بُعد بجلستين، مدة كل جلسة ساعتان.</li>
+        </ul>
+      </div>
+      <div class="scope-out">
+        <h3>خارج نطاق هذه النسخة</h3>
+        <ul class="cross">
+          <li>الربط الإلكتروني بالمضخة أو العدّاد.</li>
+          <li>الدفع الإلكتروني.</li>
+          <li>سجل المسارات التاريخي.</li>
+          <li>التحسين الآلي للمسارات أو المرور المتقدم.</li>
+          <li>تتبّع السائق خارج الطلب النشط.</li>
+          <li>البحث التلقائي عن الأماكن والعناوين.</li>
+          <li>تقارير متقدمة أو لوحات تحليلية.</li>
+          <li>تدريب حضوري أو جلسات إضافية.</li>
+        </ul>
+        <p class="note" style="margin-bottom:0">تُسعَّر هذه البنود بعرض مستقل عند طلبها.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ FLOW ============ -->
-<section class="alt" id="flow">
+<section id="flow">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">04 · دورة الطلب</span>
+      <span class="eyebrow">05 · دورة الطلب</span>
       <h2>من ضغطة الزبون إلى تسليم الوقود</h2>
-      <p>يمر كل طلب بسبع مراحل، وتُسجَّل كل مرحلة بوقتها ومنفّذها. يصل إشعار إلى الزبون عند كل انتقال.</p>
+      <p>يمر كل طلب بسبع مراحل، وتُسجَّل كل مرحلة بوقتها ومنفّذها. تظهر الحالة للزبون في التطبيق ويصله إشعار عند تغيّرها. حالة الطلب داخل النظام هي المرجع، ولا يُضمن وصول كل إشعار فوراً.</p>
     </div>
     <ol class="flow">
-      <li><span class="dot">1</span><div><b>إنشاء الطلب</b><small>النوع، الكمية، الموقع، الموعد</small><span class="actor">الزبون</span></div></li>
-      <li><span class="dot">2</span><div><b>المراجعة</b><small>موافقة أو رفض مع ذكر السبب</small><span class="actor">الإدارة</span></div></li>
-      <li><span class="dot">3</span><div><b>الإسناد</b><small>أقرب سائق لديه مخزون كافٍ</small><span class="actor">الإدارة</span></div></li>
-      <li><span class="dot">4</span><div><b>في الطريق</b><small>تتبّع مباشر ووقت وصول متوقع</small><span class="actor">السائق</span></div></li>
-      <li><span class="dot">5</span><div><b>الوصول والفحص</b><small>قائمة السلامة والتأريض</small><span class="actor">السائق</span></div></li>
-      <li><span class="dot">6</span><div><b>التعبئة</b><small>إدخال قراءة العدّاد الفعلية</small><span class="actor">السائق</span></div></li>
-      <li><span class="dot">7</span><div><b>التسليم</b><small>استلام النقد وإصدار الفاتورة</small><span class="actor">السائق</span></div></li>
+      <li><span class="dot">1</span><div><b>إنشاء الطلب</b><small>النوع، الكمية، دبوس الموقع</small><span class="actor">الزبون</span></div></li>
+      <li><span class="dot">2</span><div><b>المراجعة</b><small>التحقق من منطقة الخدمة، ثم موافقة أو رفض مع ذكر السبب</small><span class="actor">الإدارة</span></div></li>
+      <li><span class="dot">3</span><div><b>الإسناد</b><small>اختيار السائق يدوياً حسب المخزون المتوفر</small><span class="actor">الإدارة</span></div></li>
+      <li><span class="dot">4</span><div><b>في الطريق</b><small>موقع السائق أثناء الطلب ووقت وصول تقديري</small><span class="actor">السائق</span></div></li>
+      <li><span class="dot">5</span><div><b>الوصول والتحقق</b><small>تأكيد السائق لقائمة تحقق السلامة</small><span class="actor">السائق</span></div></li>
+      <li><span class="dot">6</span><div><b>التعبئة</b><small>إدخال الكمية وقراءة العدّاد يدوياً</small><span class="actor">السائق</span></div></li>
+      <li><span class="dot">7</span><div><b>التسليم</b><small>استلام النقد وإصدار الإيصال</small><span class="actor">السائق</span></div></li>
     </ol>
   </div>
 </section>
 
 <!-- ============ RULES ============ -->
-<section id="rules">
+<section class="alt" id="rules">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">05 · قواعد التشغيل</span>
+      <span class="eyebrow">06 · قواعد التشغيل</span>
       <h2>قواعد مبنية على واقع المحطة المتنقلة</h2>
       <p>هذه القواعد تجعل النظام مطابقاً لما يحدث فعلاً على الأرض، ويمكن للإدارة تعديل قيمها من لوحة التحكم.</p>
     </div>
     <div class="grid g2">
       <div class="card rule"><span class="ico">L</span><div><h3>حدود الكمية</h3><p>حد أدنى وحد أقصى للطلب الواحد، والحد الأقصى لا يتجاوز سعة الخزان (500 لتر).</p></div></div>
-      <div class="card rule"><span class="ico">≈</span><div><h3>الفوترة حسب العدّاد</h3><p>الزبون يرى سعراً تقديرياً عند الطلب، والفاتورة النهائية تُحسب من قراءة العدّاد الفعلية التي يُدخلها السائق.</p></div></div>
-      <div class="card rule"><span class="ico">⚠</span><div><h3>فحص سلامة إلزامي</h3><p>لا يستطيع السائق بدء التعبئة قبل تأكيد التأريض، ووجود الطفاية، وإيقاف المحرك، وخلو المكان من مصادر اللهب.</p></div></div>
-      <div class="card rule"><span class="ico">⛽</span><div><h3>مخزون كل خزان</h3><p>يُخصم المخزون تلقائياً بعد كل تسليم، ويُسجَّل التزوّد من المستودع، وتُنبَّه الإدارة عند انخفاض المخزون.</p></div></div>
-      <div class="card rule"><span class="ico">⌖</span><div><h3>مناطق الخدمة</h3><p>ترسم الإدارة حدود المناطق على الخريطة، ويُرفض تلقائياً أي طلب من خارجها مع رسالة توضح السبب.</p></div></div>
-      <div class="card rule"><span class="ico">IQD</span><div><h3>تسوية النقد</h3><p>يُطابَق النقد الذي يسلّمه السائق نهاية اليوم مع مجموع فواتيره، ويظهر أي فرق في تقرير مستقل.</p></div></div>
+      <div class="card rule"><span class="ico">≈</span><div><h3>المبلغ حسب الكمية المسلّمة</h3><p>الزبون يرى سعراً تقديرياً عند الطلب، والمبلغ النهائي يُحسب من الكمية المسلّمة التي يُدخلها السائق يدوياً من قراءة العدّاد.</p></div></div>
+      <div class="card rule"><span class="ico">⚠</span><div><h3>إقرار السلامة قبل التعبئة</h3><p>قبل تسجيل بدء التعبئة يؤكد السائق قائمة تحقق بسيطة: التأريض، ووجود الطفاية، وإيقاف المحرك، وخلو المكان من مصادر اللهب. يُحفظ اسم السائق ووقت التأكيد. هذا توثيق لإقرار السائق، وليس فحصاً آلياً أو شهادة سلامة.</p></div></div>
+      <div class="card rule"><span class="ico">⛽</span><div><h3>مخزون كل خزان</h3><p>يُخصم المخزون بعد كل تسليم بناءً على الكمية المُدخلة يدوياً، ويُسجَّل التزوّد من المستودع يدوياً. يظهر تنبيه في لوحة الإدارة عند نزول المخزون المسجّل عن حد تحدده الإدارة لكل خزان، دون حساسات أو قراءة تلقائية للخزان.</p></div></div>
+      <div class="card rule"><span class="ico">⌖</span><div><h3>مناطق الخدمة</h3><p>يظهر للعميل داخل التطبيق نص يوضح مناطق الخدمة، وتتحقق الإدارة من موقع الطلب عند مراجعته، ثم توافق عليه أو ترفضه مع ذكر السبب.</p></div></div>
+      <div class="card rule"><span class="ico">IQD</span><div><h3>تقرير النقد</h3><p>تقرير أساسي للمبالغ النقدية المسجّلة حسب السائق والفترة.</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- ============ TECH ============ -->
-<section class="alt" id="tech">
+<section id="tech">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">06 · البنية التقنية</span>
+      <span class="eyebrow">07 · البنية التقنية</span>
       <h2>كيف تتصل الأجزاء ببعضها</h2>
-      <p>خادم مركزي واحد يخدم التطبيق ولوحة التحكم، مع اتصال لحظي لتحديث المواقع والحالات دون إعادة تحميل.</p>
+      <p>خادم مركزي واحد يخدم التطبيق ولوحة التحكم، مع اتصال لحظي لتحديث حالة الطلب وموقع السائق أثناء تنفيذه دون إعادة تحميل.</p>
     </div>
     <div class="arch">
       <div class="col">
@@ -489,20 +581,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </div>
       <div class="arrow" aria-hidden="true">⇄</div>
       <div class="col">
-        <div class="node core"><b>Laravel 12 API</b><span>المصادقة، الطلبات، الإسناد، التسعير، التقارير</span></div>
-        <div class="node core"><b>Laravel Reverb</b><span>WebSockets للتتبع اللحظي</span></div>
-        <div class="node core"><b>Queues + Horizon</b><span>الإشعارات والمهام الخلفية</span></div>
+        <div class="node core"><b>Laravel 12 API</b><span>الحسابات، الطلبات، الإسناد، المخزون، التقارير</span></div>
+        <div class="node core"><b>Laravel Reverb</b><span>WebSockets لموقع السائق أثناء الطلب</span></div>
+        <div class="node core"><b>Queues + Horizon</b><span>إرسال الإشعارات والبريد في الخلفية</span></div>
       </div>
       <div class="arrow" aria-hidden="true">⇄</div>
       <div class="col">
         <div class="node"><b>MySQL 8 + Redis</b><span>البيانات والتخزين المؤقت</span></div>
-        <div class="node"><b>Firebase FCM</b><span>الإشعارات الفورية</span></div>
-        <div class="node"><b>Google Maps</b><span>الخرائط والملاحة والمسافات</span></div>
-        <div class="node pending"><b>تسجيل الدخول</b><span>الطريقة قيد الحسم — OTP غير متوفر حالياً</span></div>
+        <div class="node"><b>Firebase FCM</b><span>إشعارات الإسناد وتغيّر حالة الطلب</span></div>
+        <div class="node"><b>Google Maps</b><span>عرض الخرائط، دبوس الموقع، المسار الأساسي</span></div>
+        <div class="node"><b>Resend</b><span>رسائل تأكيد البريد واستعادة كلمة المرور</span></div>
       </div>
     </div>
     <div class="stack" aria-label="التقنيات">
-      <span>Flutter 3</span><span>Dart</span><span>Laravel 12</span><span>PHP 8.4</span><span>Filament 4</span><span>MySQL 8</span><span>Redis</span><span>Reverb</span><span>Sanctum</span><span>FCM</span><span>Google Maps SDK</span><span>Nginx</span><span>Ubuntu 24.04 LTS</span>
+      <span>Flutter 3</span><span>Dart</span><span>Laravel 12</span><span>PHP 8.4</span><span>Filament 4</span><span>MySQL 8</span><span>Redis</span><span>Reverb</span><span>Sanctum</span><span>Resend</span><span>FCM</span><span>Google Maps SDK</span><span>Nginx</span><span>Ubuntu 24.04 LTS</span>
     </div>
     <div class="grid g3" style="margin-top:32px">
       <div class="card"><h3>لماذا Flutter؟</h3><p>قاعدة كود واحدة تنتج تطبيقَي أندرويد وiOS بأداء قريب من الأصلي، وتدعم العربية واتجاه RTL بشكل كامل.</p></div>
@@ -513,10 +605,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </section>
 
 <!-- ============ HOSTING & SECURITY ============ -->
-<section id="hosting">
+<section class="alt" id="hosting">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">07 · الاستضافة والأمان</span>
+      <span class="eyebrow">08 · الاستضافة والأمان</span>
       <h2>خادم افتراضي مخصص في فرانكفورت</h2>
       <p>نوصي بخادم DigitalOcean في مركز بيانات فرانكفورت (FRA1) لقربه من العراق وانخفاض زمن الاستجابة. الأسعار من صفحة الأسعار الرسمية للمزوّد بتاريخ 30 أيلول 2026.</p>
     </div>
@@ -542,11 +634,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <h3>إجراءات الأمان</h3>
         <ul class="ticks">
           <li>تشفير كل الاتصالات عبر HTTPS</li>
-          <li>رموز وصول (Tokens) قابلة للإلغاء بعد تسجيل الدخول</li>
-          <li>صلاحيات منفصلة لكل دور: مدير، مشرف، محاسب، سائق، زبون</li>
+          <li>دخول بالبريد وكلمة المرور، ورموز وصول (Tokens) قابلة للإلغاء</li>
+          <li>روابط التأكيد والاستعادة محدودة الصلاحية وتُستخدم مرة واحدة</li>
+          <li>حد لمحاولات الدخول وطلبات الاستعادة</li>
+          <li>صلاحيات منفصلة لكل دور: مدير، مشرف، محاسب، سائق، عميل</li>
           <li>لا يرى السائق إلا الطلبات المُسندة إليه</li>
-          <li>تحديد معدّل الطلبات لمنع الإساءة وإغراق النظام</li>
-          <li>سجل تدقيق لكل موافقة وإسناد وتعديل سعر</li>
+          <li>تحديد معدّل الطلبات على الـAPI لمنع الإساءة</li>
+          <li>سجل أساسي لتغيير حالة الطلب والإسناد والكمية، مع اسم المنفّذ والتاريخ والوقت</li>
           <li>جدار حماية على الخادم وتحديثات أمنية دورية</li>
           <li>نسخ احتياطي يومي متاح كخيار إضافي من المزوّد (انظر قسم التكلفة)</li>
         </ul>
@@ -556,10 +650,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </section>
 
 <!-- ============ TIMELINE ============ -->
-<section class="alt" id="timeline">
+<section id="timeline">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">08 · الجدول الزمني</span>
+      <span class="eyebrow">09 · الجدول الزمني</span>
       <h2>ثلاثة أشهر ونصف من التوقيع إلى الإطلاق</h2>
       <p>نعرض على الجهة المستفيدة نسخة تجريبية كل أسبوعين لتتابع التقدم وتعطي ملاحظاتها مبكراً.</p>
     </div>
@@ -588,7 +682,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="bar-track"><div class="bar o" style="grid-column:6 / span 1">2½ – 3 شهر</div></div>
     </div>
     <div class="tl-row">
-      <div class="name"><b>النشر والتدريب</b><small>المتجران، تدريب الإدارة والسائقين</small></div>
+      <div class="name"><b>النشر والتدريب</b><small>المتجران، وجلستا تدريب عن بُعد</small></div>
       <div class="bar-track"><div class="bar o" style="grid-column:7 / span 1">3 – 3½ شهر</div></div>
     </div>
     <p class="note">مراجعة Apple للتطبيق تستغرق عادة من يوم إلى ثلاثة أيام، وقد تطول إن طلبت تعديلات. هذه المدة خارجة عن سيطرتنا.</p>
@@ -596,21 +690,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </section>
 
 <!-- ============ PRICING ============ -->
-<section id="pricing">
+<section class="alt" id="pricing">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">09 · التكلفة</span>
+      <span class="eyebrow">10 · التكلفة</span>
       <h2>كلفة تطوير لمرة واحدة، واشتراك سنوي منفصل</h2>
       <p>جميع المبالغ بالدولار الأمريكي، ويمكن دفعها بما يعادلها بالدينار العراقي حسب سعر الصرف يوم الدفع.</p>
     </div>
     <div class="price-grid">
       <div class="price-card">
-        <header><h3>كلفة التطوير — تُدفع مرة واحدة</h3><p>تشمل الكلفة الاختبار الميداني، ونشر التطبيق على المتجرين، وتدريب فريق الإدارة والسائقين.</p></header>
+        <header><h3>كلفة التطوير — تُدفع مرة واحدة</h3><p>تغطي نطاق نسخة الإطلاق المحدد في القسم 04، وتشمل الاختبار الميداني والنشر على المتجرين وجلستَي تدريب عن بُعد (ساعتان لكل جلسة). أي توسعة لاحقة تُسعَّر بصورة مستقلة.</p></header>
         <ul class="lines">
           <li><div><b>التحليل وتصميم الواجهات</b><small>تحليل المتطلبات، نحو 45 شاشة، نموذج تفاعلي</small></div><span class="amt">$500</span></li>
-          <li><div><b>تطبيق Flutter بواجهتين</b><small>واجهة الطالب + واجهة السائق، أندرويد وiOS</small></div><span class="amt">$1,500</span></li>
-          <li><div><b>الخادم والـAPI والتتبع اللحظي</b><small>Laravel API، WebSockets، الإشعارات الفورية</small></div><span class="amt">$1,100</span></li>
-          <li><div><b>لوحة تحكم الإدارة</b><small>الموافقة والإسناد، الخريطة الحية، المخزون، التقارير</small></div><span class="amt">$900</span></li>
+          <li><div><b>تطبيق Flutter بواجهتين</b><small>واجهة العميل + واجهة السائق، Android وiOS</small></div><span class="amt">$1,500</span></li>
+          <li><div><b>الخادم والـAPI</b><small>الحسابات وروابط البريد، الطلبات والإسناد، موقع السائق أثناء الطلب</small></div><span class="amt">$1,100</span></li>
+          <li><div><b>لوحة تحكم الإدارة</b><small>المراجعة والموافقة والإسناد والمتابعة، المخزون اليدوي، التقارير الأساسية</small></div><span class="amt">$900</span></li>
         </ul>
         <div class="total">
           <div class="meter"><span class="lbl">Total · one-time development</span><div class="val">$4,000<small>USD</small></div></div>
@@ -625,12 +719,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <table class="sub-table">
           <tbody>
             <tr><th>تجديد عضوية Apple Developer<small>رسوم Apple السنوية لإبقاء التطبيق منشوراً على App Store</small></th><td class="amt">$99</td></tr>
-            <tr><th>الدعم الفني<small>استقبال بلاغات الأعطال في أوقات العمل، وإصلاح الأخطاء في الوظائف المتفق عليها، ومتابعة تشغيل الخادم وتطبيق تحديثاته الأمنية. لا يشمل تعديلات أو ميزات جديدة.</small></th><td class="amt">$50</td></tr>
+            <tr><th>الدعم الفني<small>استقبال البلاغات وتشخيصها، والمساعدة في المشكلات التشغيلية البسيطة، وتحديثات الخادم الأمنية الدورية البسيطة، وإصلاح عيوب التنفيذ خلال فترة الضمان (90 يوماً من الإطلاق).</small></th><td class="amt">$50</td></tr>
             <tr><th>استضافة VPS — DigitalOcean<small>Basic (Regular): 4 vCPU، 8 GiB RAM، 160 GiB SSD، فرانكفورت FRA1. بدون نسخ احتياطي.</small></th><td class="amt">$576<small>$48 × 12</small></td></tr>
             <tr class="sum"><th>إجمالي الاشتراك السنوي</th><td class="amt">$725</td></tr>
           </tbody>
         </table>
-        <div class="excl">أسعار Apple وDigitalOcean يحددها المزوّدان وقد تتغير، ولا تشمل أي ضرائب قد يفرضها المزوّد حسب بلد الفوترة.</div>
+        <div class="excl"><b>يُسعَّر بصورة مستقلة:</b> الصيانة بعد انتهاء الضمان، والميزات الجديدة، وترقيات الإصدارات الرئيسية، والتوافق مع إصدارات Android وiOS الجديدة، وأي عمل يتطلب تعديلات برمجية إضافية.<br><br>أسعار Apple وDigitalOcean يحددها المزوّدان وقد تتغير، ولا تشمل أي ضرائب قد يفرضها المزوّد حسب بلد الفوترة.</div>
       </div>
     </div>
 
@@ -640,30 +734,61 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <thead><tr><th>البند</th><th>الوضع</th><th>التفاصيل</th></tr></thead>
         <tbody>
           <tr><td>النسخ الاحتياطي اليومي</td><td><span class="pill opt">اختياري · برسوم إضافية</span></td><td>من DigitalOcean بنسبة 30% من سعر الخادم: $14.40 شهرياً ($172.80 سنوياً). النسخ الأسبوعي 20%: $9.60 شهرياً ($115.20 سنوياً). نوصي بتفعيل النسخ اليومي.</td></tr>
-          <tr><td>النطاق (Domain)</td><td><span class="pill out">غير مشمول</span></td><td>يُسجَّل باسم الجهة المستفيدة، وتتحدد كلفته حسب الامتداد وجهة التسجيل.</td></tr>
+          <tr><td>الخادم قبل الإطلاق</td><td><span class="pill out">غير مشمول</span></td><td>الاشتراك يبدأ من الإطلاق. تشغيل الخادم للاختبار قبل ذلك يُحتسب بالكلفة الفعلية لدى DigitalOcean: $48 شهرياً ($0.07143 للساعة)، أي نحو $24–$48 لفترة الاختبار والنشر (من نصف شهر إلى شهر).</td></tr>
+          <tr><td>النطاق (Domain)</td><td><span class="pill out">غير مشمول</span></td><td>يُسجَّل باسم الجهة المستفيدة، وتتحدد كلفته حسب الامتداد وجهة التسجيل. النطاق مطلوب أيضاً لإرسال رسائل البريد.</td></tr>
+          <tr><td>إرسال البريد — Resend</td><td><span class="pill in">$0 ضمن الخطة المجانية</span></td><td>الخطة المجانية: 3,000 رسالة شهرياً بحد 100 رسالة يومياً، وتكفي لرسائل التأكيد والاستعادة في البداية. إذا تجاوز الإرسال ذلك تُفعَّل خطة Pro بسعر $20 شهرياً (50,000 رسالة)، وتُحتسب خارج الاشتراك الأساسي. تتطلب الخدمة توثيق النطاق بسجلات DNS.</td></tr>
           <tr><td>شهادة SSL</td><td><span class="pill in">بدون رسوم</span></td><td>شهادة Let's Encrypt المجانية، تُثبَّت وتُجدَّد تلقائياً على الخادم.</td></tr>
           <tr><td>حساب Google Play</td><td><span class="pill in">لا رسوم سنوية</span></td><td>الحساب قائم ورسوم تسجيله تُدفع مرة واحدة فقط.</td></tr>
-          <tr><td>رمز التحقق OTP</td><td><span class="pill out">غير متوفر حالياً</span></td><td>طريقة تسجيل الدخول قيد الحسم. عند اعتماد OTP يُتعاقد مع مزوّد، وتُحتسب كلفة الربط والرسائل بشكل مستقل.</td></tr>
-          <tr><td>خرائط Google</td><td><span class="pill out">غير مشمول</span></td><td>تُحتسب حسب الاستخدام وفق تسعير Google إن تجاوز الاستخدام الحصة المجانية.</td></tr>
+          <tr><td>خرائط Google</td><td><span class="pill out">الزائد غير مشمول</span></td><td>الاستخدام ضمن الحدود المجانية الشهرية بلا رسوم، والزائد يُحتسب حسب الاستخدام. انظر الجدول أدناه.</td></tr>
           <tr><td>تعديلات وميزات جديدة</td><td><span class="pill out">غير مشمول</span></td><td>تُسعَّر عند طلبها باتفاق مكتوب.</td></tr>
         </tbody>
       </table>
     </div>
 
+    <div class="maps-grid">
+      <div>
+        <h3>تكلفة خرائط Google</h3>
+        <div class="tbl-scroll">
+          <table class="status maps">
+            <thead><tr><th>الخدمة واستخدامها</th><th>الحد المجاني الشهري</th><th>الاستخدام الزائد (الشريحة الأولى)</th></tr></thead>
+            <tbody>
+              <tr><td>Maps SDK — عرض الخرائط في تطبيق Android وiOS</td><td data-label="الحد المجاني الشهري">غير محدود</td><td data-label="الاستخدام الزائد">لا رسوم على عرض الخريطة. أي خدمة إضافية تُحاسب بصورة مستقلة.</td></tr>
+              <tr><td>Dynamic Maps — الخريطة التفاعلية في لوحة الإدارة</td><td data-label="الحد المجاني الشهري">10,000 تحميل</td><td data-label="الاستخدام الزائد">$7 لكل 1,000 تحميل إضافي</td></tr>
+              <tr><td>Compute Routes Essentials — المسار الأساسي والمسافة ووقت الوصول</td><td data-label="الحد المجاني الشهري">10,000 طلب</td><td data-label="الاستخدام الزائد">$5 لكل 1,000 طلب إضافي</td></tr>
+              <tr><td>Geocoding — تحويل إحداثيات الدبوس إلى عنوان مقروء</td><td data-label="الحد المجاني الشهري">10,000 طلب</td><td data-label="الاستخدام الزائد">$5 لكل 1,000 طلب إضافي</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="src">الأسعار بالدولار الأمريكي. تحققنا منها في 30 أيلول 2026 من الصفحة الرسمية (آخر تحديث لها 24 أيلول 2026)، وقد تغيّرها Google:<br><a href="https://developers.google.com/maps/billing-and-pricing/pricing" rel="noopener">developers.google.com/maps/billing-and-pricing/pricing</a></p>
+      </div>
+      <div class="card">
+        <h3>كيف تُحسب</h3>
+        <ul class="ticks">
+          <li>الحد المجاني مستقل لكل خدمة، ويتجدد أول كل شهر.</li>
+          <li>الأرقام عدد عمليات الخدمة، وليست عدد العملاء أو الطلبات التجارية.</li>
+          <li>تجاوز الحد يُحاسب حسب الاستخدام، ولا يتحول إلى اشتراك ثابت.</li>
+          <li>مثال: 15,000 طلب مسار أساسي في شهر = 5,000 طلب مدفوع = $25 لذلك الشهر، إضافة إلى أي خدمة أخرى تجاوزت حدها.</li>
+          <li>تتحمل الجهة المستفيدة تكاليف الاستخدام الزائد، خارج الاشتراك السنوي الأساسي.</li>
+          <li>نضبط حصص استخدام وتنبيهات ميزانية. تنبيه الميزانية وحده لا يوقف الفوترة؛ الحصص هي التي تحدّ الاستخدام.</li>
+          <li>تحريك علامة السائق يعتمد على إحداثيات النظام، ولا يُعد طلب مسار جديداً. يُحسب المسار عند بدء التوصيل، ولا يُعاد حسابه مع كل تحديث للموقع.</li>
+          <li>تحديد الموقع بدبوس على الخريطة، دون بحث تلقائي عن الأماكن.</li>
+        </ul>
+      </div>
+    </div>
     <div class="grid g3" style="margin-top:24px">
       <div class="meter"><span class="lbl">Year 1 · $4,000 + $725</span><div class="val">$4,725</div></div>
       <div class="meter"><span class="lbl">Year 2 onward</span><div class="val">$725<small>/YR</small></div></div>
       <div class="meter"><span class="lbl">Warranty</span><div class="val">90<small>DAYS</small></div></div>
     </div>
-    <p class="note">يتضمن العرض ضماناً لمدة 90 يوماً بعد الإطلاق على أي خلل في الوظائف المتفق عليها. المجاميع أعلاه لا تشمل النسخ الاحتياطي الاختياري.</p>
+    <p class="note">يتضمن العرض ضماناً لمدة 90 يوماً بعد الإطلاق لإصلاح عيوب التنفيذ في الوظائف المتفق عليها. المجاميع أعلاه لا تشمل البنود المنفصلة: النسخ الاحتياطي، والنطاق، والخادم قبل الإطلاق، والاستخدام الزائد للخرائط، وخطة Resend المدفوعة عند الحاجة.</p>
   </div>
 </section>
 
 <!-- ============ TERMS ============ -->
-<section class="alt" id="terms">
+<section id="terms">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">10 · شروط الدفع والتسليم</span>
+      <span class="eyebrow">11 · شروط الدفع والتسليم</span>
       <h2>ثلاث دفعات للتطوير مرتبطة بمراحل واضحة</h2>
       <p>هذه الدفعات تخص كلفة التطوير ($4,000) فقط. الاشتراك السنوي بند منفصل.</p>
     </div>
@@ -680,7 +805,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <li>يُنشر التطبيق مبدئياً عبر حسابات المطوّر على Google Play وApp Store، ويمكن نقله إلى حساب باسم الجهة المستفيدة متى طلبت ذلك.</li>
           <li>يُسلَّم الكود المصدري بعد سداد كلفة التطوير كاملة.</li>
           <li>أي تعديل يغيّر نطاق العمل المتفق عليه يُسعَّر ويُجدول باتفاق مكتوب.</li>
-          <li>إذا لم يُجدَّد الاشتراك يبقى النظام ملكاً للجهة المستفيدة، وتتوقف الاستضافة والصيانة بعد إشعار مسبق بثلاثين يوماً.</li>
+          <li>إذا لم يُجدَّد الاشتراك يبقى النظام ملكاً للجهة المستفيدة، وتتوقف الاستضافة والدعم الفني بعد إشعار مسبق بثلاثين يوماً.</li>
+          <li>الصيانة بعد انتهاء فترة الضمان، وأي توسعة على نطاق نسخة الإطلاق، تُسعَّر بصورة مستقلة.</li>
           <li>صلاحية هذا العرض 30 يوماً من تاريخه.</li>
         </ol>
       </div>
@@ -689,8 +815,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <ul class="ticks">
           <li>الشعار والهوية البصرية بصيغ عالية الدقة</li>
           <li>أسعار الوقود وسياسة التسعير ومناطق الخدمة</li>
-          <li>أرقام الهاتف وبيانات السائقين والمركبات</li>
+          <li>بيانات السائقين والمركبات والخزانات</li>
           <li>شخص مسؤول للتواصل واعتماد مراحل العمل</li>
+          <li>نطاق (Domain) باسم الجهة المستفيدة، يُستخدم للوحة التحكم ولإرسال رسائل البريد</li>
+          <li>حساب فوترة في Google Cloud باسم الجهة المستفيدة لخدمات الخرائط</li>
           <li>سياسة الخصوصية وشروط الاستخدام، أو الموافقة على نموذج نعدّه</li>
           <li>محطة متنقلة وسائق متاحان خلال فترة الاختبار الميداني (نصف شهر)</li>
         </ul>
@@ -699,21 +827,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="warn" style="margin-top:24px">
       <h3>تنبيه قبل الإطلاق التجاري</h3>
       <p>نقل الوقود وبيعه للزبائن يحتاج موافقة شركة توزيع المنتجات النفطية والدفاع المدني، كما ورد في ملف المواصفات. ويشير الملف أيضاً إلى أن الوزن المتوقع للمحطة عند التعبئة الكاملة قد يتجاوز الحمولة المسموحة للسيارة. الحصول على الموافقات وحسم هذه الملاحظات الهندسية مسؤولية الجهة المستفيدة، ونوصي بإنجازه بالتوازي مع التطوير حتى لا يتأخر الإطلاق.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ACCEPTANCE ============ -->
-<section id="accept">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">11 · الموافقة</span>
-      <h2>اعتماد العرض</h2>
-      <p>بتوقيع الطرفين أدناه يُعتمد هذا العرض أساساً للعقد، ويبدأ العمل عند استلام الدفعة الأولى.</p>
-    </div>
-    <div class="sign">
-      <div><b>عن الجهة المستفيدة — بوزرجي</b><div class="ln"></div><small>الاسم والتوقيع</small><div class="ln"></div><small>التاريخ</small></div>
-      <div><b>عن فريق التطوير</b><div class="ln"></div><small>الاسم والتوقيع</small><div class="ln"></div><small>التاريخ</small></div>
     </div>
   </div>
 </section>
