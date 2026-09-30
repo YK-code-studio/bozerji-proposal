@@ -117,6 +117,18 @@ ul.ticks li::before{content:"";position:absolute;inset-inline-start:0;top:.75em;
 .spec tbody tr:last-child td{border-bottom:0}
 .spec td.num{font-family:var(--mono);direction:ltr;text-align:end;white-space:nowrap;font-size:16px}
 .tbl-scroll{overflow-x:auto;border-radius:var(--radius)}
+.spec td.num.ar{font-family:var(--body);direction:rtl;font-size:15px}
+@media (max-width:640px){
+  .spec th,.spec td,.status th,.status td{padding:10px 12px}
+  .spec td.num{white-space:normal;word-break:break-word;font-size:14.5px}
+  .status{font-size:14px}
+  .status thead{display:none}
+  table.status tbody tr{display:block;padding:12px 14px;border-bottom:1px solid var(--line)}
+  table.status tbody tr:last-child{border-bottom:0}
+  table.status tbody td{display:block;padding:3px 0;border:0}
+  table.status tbody td:first-child{font-weight:600}
+  .sub-table td.amt{font-size:15px}
+}
 
 /* placard for fuel type */
 .placard{display:inline-grid;place-items:center;width:58px;height:58px;transform:rotate(45deg);border:3px solid #111;background:var(--danger);border-radius:6px;flex:none}
@@ -167,13 +179,13 @@ ul.ticks li::before{content:"";position:absolute;inset-inline-start:0;top:.75em;
 .stack span{font-family:var(--mono);direction:ltr;font-size:14px;background:#fff;border:1px solid var(--line);padding:5px 12px;border-radius:8px}
 
 /* timeline */
-.tl{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:10px;direction:rtl}
-.tl .wk{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center}
+.tl{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:10px;direction:rtl}
+.tl .wk{font-family:var(--body);font-size:12px;color:var(--muted);text-align:center}
 .tl-row{display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
 .tl-row:last-child{border-bottom:0}
 .tl-row .name b{font-family:var(--display);display:block;font-size:16px}
 .tl-row .name small{color:var(--muted);font-size:13.5px}
-.bar-track{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;height:30px}
+.bar-track{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;height:30px}
 .bar{border-radius:7px;background:var(--asphalt);color:#fff;font-size:12.5px;display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden}
 .bar.o{background:var(--orange)}
 .bar.h{background:var(--hazard);color:#111}
@@ -200,6 +212,22 @@ ul.ticks li::before{content:"";position:absolute;inset-inline-start:0;top:.75em;
 .sub-card ul.ticks li{color:#DDE1E6}
 .sub-card .excl{margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:14.5px;color:#AEB5BF}
 .note{font-size:14.5px;color:var(--muted);margin-top:16px}
+.sub-table{width:100%;border-collapse:collapse;font-size:15px;margin:6px 0 4px}
+.sub-table th,.sub-table td{padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12);text-align:start;vertical-align:top}
+.sub-table th{font-weight:600;color:#fff}
+.sub-table th small{display:block;font-weight:400;color:#AEB5BF;font-size:13.5px;line-height:1.7}
+.sub-table td.amt{font-family:var(--mono);direction:ltr;text-align:end;white-space:nowrap;color:#fff;font-size:17px;padding-inline-start:12px}
+.sub-table td.amt small{display:block;color:#AEB5BF;font-size:12.5px}
+.sub-table tr.sum th,.sub-table tr.sum td{border-bottom:0;color:var(--meter)}
+.status{width:100%;border-collapse:collapse;font-size:15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.status th,.status td{padding:12px 16px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
+.status thead th{background:var(--asphalt);color:#fff;font-weight:600;font-size:14px}
+.status tbody tr:last-child td{border-bottom:0}
+.status .pill{display:inline-block;font-size:12.5px;border-radius:999px;padding:1px 10px;white-space:nowrap}
+.pill.in{background:#E3F6EA;color:#1C6B3D}.pill.out{background:#FDECE9;color:#9B2B1F}.pill.opt{background:#FFF3D6;color:#7A5600}
+.decide{border-inline-start:5px solid var(--hazard);background:#FFF9E6;border-radius:10px;padding:18px 20px;margin-top:24px}
+.decide h3{font-size:18px}.decide p{color:#4A4330;margin:0}
+.node.pending{border-style:dashed;border-color:var(--steel);background:transparent}
 
 /* terms */
 ol.terms{margin:0;padding-inline-start:22px}
@@ -234,6 +262,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .hero .wrap{padding:30px 24px}
   .card,.price-card,.sub-card,.tl-row{break-inside:avoid}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .tl-row{grid-template-columns:170px 1fr}
+  .tl-row.tl.head{display:grid}
+  .bar{padding:0 6px;font-size:11px}
 }
 </style>
 </head>
@@ -289,12 +321,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <span class="eyebrow ar">01 · الملخص التنفيذي</span>
       <h2>ماذا سنبني ولماذا</h2>
       <p class="big">تمتلك الجهة المستفيدة محطات وقود متنقلة تحمل البنزين والكاز. ينقصها نظام يجمع الطلبات من الزبائن، ويعرضها على الإدارة للموافقة، ثم يوجّهها إلى السائق المختص مع تتبّع مباشر حتى تسليم الوقود واستلام المبلغ نقداً.</p>
-      <p>يغطي هذا العرض تحليل المتطلبات، والتصميم، والتطوير، والنشر على Google Play وApp Store، والاستضافة، والصيانة السنوية، ضمن كلفة تطوير تُدفع مرة واحدة واشتراك سنوي ثابت.</p>
+      <p>يغطي هذا العرض تحليل المتطلبات، والتصميم، والتطوير، والنشر على Google Play وApp Store، والاستضافة، والصيانة السنوية، ضمن كلفة تطوير تُدفع مرة واحدة واشتراك سنوي مفصّل البنود.</p>
     </div>
     <div class="stats" aria-label="أرقام رئيسية">
       <div class="meter"><span class="lbl">Interfaces</span><div class="val">3</div></div>
       <div class="meter"><span class="lbl">Platforms</span><div class="val">iOS+AND</div></div>
-      <div class="meter"><span class="lbl">Delivery</span><div class="val">12<small>WEEKS</small></div></div>
+      <div class="meter"><span class="lbl">Delivery</span><div class="val">3.5<small>MONTHS</small></div></div>
       <div class="meter"><span class="lbl">Payment</span><div class="val">COD</div></div>
     </div>
   </div>
@@ -347,7 +379,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="sec-head">
       <span class="eyebrow">03 · مكونات النظام</span>
       <h2>تطبيق واحد بواجهتين، ولوحة تحكم للإدارة</h2>
-      <p>يسجّل المستخدم دخوله برقم هاتفه، ويفتح التطبيق الواجهة المناسبة لدوره تلقائياً. حسابات السائقين تُنشأ من لوحة الإدارة فقط.</p>
+      <p>يفتح التطبيق الواجهة المناسبة لدور المستخدم تلقائياً بعد تسجيل الدخول. حسابات السائقين تُنشأ من لوحة الإدارة فقط. طريقة تسجيل الدخول لم تُحسم بعد (انظر الملاحظة أدناه).</p>
     </div>
     <div class="grid g3">
       <article class="card iface">
@@ -355,7 +387,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <h3>واجهة طالب الوقود</h3>
         <p class="who">أفراد، مولّدات، شركات، ومواقع إنشاء.</p>
         <ul class="ticks">
-          <li>التسجيل برقم الهاتف ورمز تحقق</li>
+          <li>إنشاء حساب وتسجيل الدخول (الطريقة قيد الحسم)</li>
           <li>اختيار نوع الوقود والكمية باللتر</li>
           <li>تحديد الموقع على الخريطة وحفظ العناوين</li>
           <li>طلب فوري أو موعد لاحق</li>
@@ -395,6 +427,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <li>صلاحيات حسب الدور وسجل للعمليات</li>
         </ul>
       </article>
+    </div>
+    <div class="decide">
+      <h3>قرار مطلوب: طريقة تسجيل الدخول</h3>
+      <p>خدمة رمز التحقق عبر الرسائل (OTP) غير متوفرة حالياً وغير مشمولة في هذا العرض. تُحسم طريقة تسجيل الدخول مع الجهة المستفيدة في مرحلة التحليل. إذا اعتُمد OTP فإنه يحتاج إلى التعاقد مع مزوّد رسائل، وتُحتسب كلفة ربطه وكلفة الرسائل بشكل مستقل عن هذا العرض.</p>
     </div>
   </div>
 </section>
@@ -462,7 +498,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <div class="node"><b>MySQL 8 + Redis</b><span>البيانات والتخزين المؤقت</span></div>
         <div class="node"><b>Firebase FCM</b><span>الإشعارات الفورية</span></div>
         <div class="node"><b>Google Maps</b><span>الخرائط والملاحة والمسافات</span></div>
-        <div class="node"><b>مزوّد OTP</b><span>رسائل رمز التحقق</span></div>
+        <div class="node pending"><b>تسجيل الدخول</b><span>الطريقة قيد الحسم — OTP غير متوفر حالياً</span></div>
       </div>
     </div>
     <div class="stack" aria-label="التقنيات">
@@ -481,8 +517,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">07 · الاستضافة والأمان</span>
-      <h2>خادم مخصص بنسخ احتياطي يومي</h2>
-      <p>نوصي بخادم افتراضي مخصص (VPS) في مركز بيانات فرانكفورت لقربه من العراق وانخفاض زمن الاستجابة.</p>
+      <h2>خادم افتراضي مخصص في فرانكفورت</h2>
+      <p>نوصي بخادم DigitalOcean في مركز بيانات فرانكفورت (FRA1) لقربه من العراق وانخفاض زمن الاستجابة. الأسعار من صفحة الأسعار الرسمية للمزوّد بتاريخ 30 أيلول 2026.</p>
     </div>
     <div class="grid g2">
       <div class="tbl-scroll">
@@ -490,13 +526,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <thead><tr><th>مواصفات الخادم المقترح</th><th style="text-align:end">القيمة</th></tr></thead>
           <tbody>
             <tr><td>المعالج</td><td class="num">4 vCPU</td></tr>
-            <tr><td>الذاكرة</td><td class="num">8 GB RAM</td></tr>
-            <tr><td>التخزين</td><td class="num">160 GB NVMe</td></tr>
-            <tr><td>المزوّد</td><td class="num">Hetzner / DigitalOcean</td></tr>
-            <tr><td>الموقع</td><td class="num">Frankfurt, DE</td></tr>
-            <tr><td>النسخ الاحتياطي</td><td class="num">Daily · 30-day retention</td></tr>
+            <tr><td>الذاكرة</td><td class="num">8 GiB RAM</td></tr>
+            <tr><td>التخزين</td><td class="num">160 GiB SSD</td></tr>
+            <tr><td>نقل البيانات الشهري</td><td class="num">5,000 GiB</td></tr>
+            <tr><td>المزوّد والخطة</td><td class="num">DigitalOcean · Basic (Regular)</td></tr>
+            <tr><td>الموقع</td><td class="num">Frankfurt · FRA1</td></tr>
+            <tr><td>السعر</td><td class="num">$48 / mo · $576 / yr</td></tr>
+            <tr><td>النسخ الاحتياطي</td><td class="num ar">غير مشمول · اختياري</td></tr>
             <tr><td>شهادة الأمان</td><td class="num">SSL/TLS (Let's Encrypt)</td></tr>
-            <tr><td>المراقبة</td><td class="num">24/7 uptime alerts</td></tr>
           </tbody>
         </table>
         <p class="note">هذه السعة تكفي بارتياح لبضعة آلاف من المستخدمين وعشرات السائقين. عند النمو يمكن ترقية الخادم دون توقف طويل.</p>
@@ -505,13 +542,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <h3>إجراءات الأمان</h3>
         <ul class="ticks">
           <li>تشفير كل الاتصالات عبر HTTPS</li>
-          <li>تسجيل دخول برمز تحقق ورموز وصول قابلة للإلغاء</li>
+          <li>رموز وصول (Tokens) قابلة للإلغاء بعد تسجيل الدخول</li>
           <li>صلاحيات منفصلة لكل دور: مدير، مشرف، محاسب، سائق، زبون</li>
           <li>لا يرى السائق إلا الطلبات المُسندة إليه</li>
           <li>تحديد معدّل الطلبات لمنع الإساءة وإغراق النظام</li>
           <li>سجل تدقيق لكل موافقة وإسناد وتعديل سعر</li>
           <li>جدار حماية على الخادم وتحديثات أمنية دورية</li>
-          <li>نسخة احتياطية يومية خارج الخادم مع اختبار استرجاع دوري</li>
+          <li>نسخ احتياطي يومي متاح كخيار إضافي من المزوّد (انظر قسم التكلفة)</li>
         </ul>
       </div>
     </div>
@@ -523,36 +560,36 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">08 · الجدول الزمني</span>
-      <h2>12 أسبوعاً من التوقيع إلى الإطلاق</h2>
+      <h2>ثلاثة أشهر ونصف من التوقيع إلى الإطلاق</h2>
       <p>نعرض على الجهة المستفيدة نسخة تجريبية كل أسبوعين لتتابع التقدم وتعطي ملاحظاتها مبكراً.</p>
     </div>
     <div class="tl-row tl head" aria-hidden="true">
       <div></div>
-      <div class="tl" style="margin:0"><span class="wk">1</span><span class="wk">2</span><span class="wk">3</span><span class="wk">4</span><span class="wk">5</span><span class="wk">6</span><span class="wk">7</span><span class="wk">8</span><span class="wk">9</span><span class="wk">10</span><span class="wk">11</span><span class="wk">12</span></div>
+      <div class="tl" style="margin:0"><span class="wk">حتى ½ شهر</span><span class="wk">1 شهر</span><span class="wk">1½ شهر</span><span class="wk">2 شهر</span><span class="wk">2½ شهر</span><span class="wk">3 شهر</span><span class="wk">3½ شهر</span></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>التحليل والتصميم</b><small>المتطلبات، الشاشات، النموذج التفاعلي</small></div>
-      <div class="bar-track"><div class="bar h" style="grid-column:1 / span 2">أسبوع 1–2</div></div>
+      <div class="bar-track"><div class="bar h" style="grid-column:1 / span 1">0 – ½ شهر</div></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>الخادم والـAPI</b><small>قاعدة البيانات، الطلبات، الإسناد</small></div>
-      <div class="bar-track"><div class="bar" style="grid-column:3 / span 4">أسبوع 3–6</div></div>
+      <div class="bar-track"><div class="bar" style="grid-column:2 / span 3">½ – 2 شهر</div></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>تطبيق الطالب والسائق</b><small>Flutter لأندرويد وiOS</small></div>
-      <div class="bar-track"><div class="bar" style="grid-column:3 / span 6">أسبوع 3–8</div></div>
+      <div class="bar-track"><div class="bar" style="grid-column:2 / span 4">½ – 2½ شهر</div></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>لوحة تحكم الإدارة</b><small>الموافقة، الخريطة الحية، التقارير</small></div>
-      <div class="bar-track"><div class="bar" style="grid-column:5 / span 4">أسبوع 5–8</div></div>
+      <div class="bar-track"><div class="bar" style="grid-column:3 / span 3">1 – 2½ شهر</div></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>الاختبار الميداني</b><small>تجربة حقيقية مع محطة متنقلة وسائق</small></div>
-      <div class="bar-track"><div class="bar o" style="grid-column:9 / span 2">أسبوع 9–10</div></div>
+      <div class="bar-track"><div class="bar o" style="grid-column:6 / span 1">2½ – 3 شهر</div></div>
     </div>
     <div class="tl-row">
       <div class="name"><b>النشر والتدريب</b><small>المتجران، تدريب الإدارة والسائقين</small></div>
-      <div class="bar-track"><div class="bar o" style="grid-column:11 / span 2">أسبوع 11–12</div></div>
+      <div class="bar-track"><div class="bar o" style="grid-column:7 / span 1">3 – 3½ شهر</div></div>
     </div>
     <p class="note">مراجعة Apple للتطبيق تستغرق عادة من يوم إلى ثلاثة أيام، وقد تطول إن طلبت تعديلات. هذه المدة خارجة عن سيطرتنا.</p>
   </div>
@@ -563,21 +600,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">09 · التكلفة</span>
-      <h2>كلفة تطوير لمرة واحدة، واشتراك سنوي ثابت</h2>
+      <h2>كلفة تطوير لمرة واحدة، واشتراك سنوي منفصل</h2>
       <p>جميع المبالغ بالدولار الأمريكي، ويمكن دفعها بما يعادلها بالدينار العراقي حسب سعر الصرف يوم الدفع.</p>
     </div>
     <div class="price-grid">
       <div class="price-card">
-        <header><h3>كلفة التطوير — تُدفع مرة واحدة</h3><p>تشمل كل ما يلزم حتى إطلاق النظام على المتجرين.</p></header>
+        <header><h3>كلفة التطوير — تُدفع مرة واحدة</h3><p>تشمل الكلفة الاختبار الميداني، ونشر التطبيق على المتجرين، وتدريب فريق الإدارة والسائقين.</p></header>
         <ul class="lines">
-          <li><div><b>التحليل وتصميم الواجهات</b><small>تحليل المتطلبات، نحو 45 شاشة، نموذج تفاعلي</small></div><span class="amt">$1,200</span></li>
-          <li><div><b>تطبيق Flutter بواجهتين</b><small>واجهة الطالب + واجهة السائق، أندرويد وiOS</small></div><span class="amt">$3,600</span></li>
-          <li><div><b>الخادم والـAPI والتتبع اللحظي</b><small>Laravel API، WebSockets، الإشعارات، رمز التحقق</small></div><span class="amt">$2,400</span></li>
-          <li><div><b>لوحة تحكم الإدارة</b><small>الموافقة والإسناد، الخريطة الحية، المخزون، التقارير</small></div><span class="amt">$1,800</span></li>
-          <li><div><b>الاختبار والنشر والتدريب</b><small>اختبار ميداني، رفع التطبيق للمتجرين، تدريب الفريق</small></div><span class="amt">$800</span></li>
+          <li><div><b>التحليل وتصميم الواجهات</b><small>تحليل المتطلبات، نحو 45 شاشة، نموذج تفاعلي</small></div><span class="amt">$500</span></li>
+          <li><div><b>تطبيق Flutter بواجهتين</b><small>واجهة الطالب + واجهة السائق، أندرويد وiOS</small></div><span class="amt">$1,500</span></li>
+          <li><div><b>الخادم والـAPI والتتبع اللحظي</b><small>Laravel API، WebSockets، الإشعارات الفورية</small></div><span class="amt">$1,100</span></li>
+          <li><div><b>لوحة تحكم الإدارة</b><small>الموافقة والإسناد، الخريطة الحية، المخزون، التقارير</small></div><span class="amt">$900</span></li>
         </ul>
         <div class="total">
-          <div class="meter"><span class="lbl">Total · one-time development</span><div class="val">$9,800<small>USD</small></div></div>
+          <div class="meter"><span class="lbl">Total · one-time development</span><div class="val">$4,000<small>USD</small></div></div>
         </div>
       </div>
 
@@ -585,28 +621,41 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <div class="hazard" aria-hidden="true"></div>
         <span class="eyebrow">Annual subscription</span>
         <h3>الاشتراك السنوي</h3>
-        <div class="meter" style="margin:14px 0 18px"><span class="lbl">Per year · from launch date</span><div class="val">$2,400<small>/YR</small></div></div>
-        <p>يبدأ من تاريخ الإطلاق ويُدفع مقدماً عن كل سنة. يشمل:</p>
-        <ul class="ticks">
-          <li>استضافة الخادم المخصص وتشغيله</li>
-          <li>النطاق (Domain) وشهادة SSL</li>
-          <li>النسخ الاحتياطي اليومي والمراقبة على مدار الساعة</li>
-          <li>رسوم حساب مطوّر Apple السنوية وحساب Google Play</li>
-          <li>إصلاح الأعطال دون كلفة إضافية</li>
-          <li>تحديث التطبيق ليتوافق مع إصدارات أندرويد وiOS الجديدة</li>
-          <li>تعديلات صغيرة حتى 8 ساعات شهرياً</li>
-          <li>دعم فني في أوقات العمل، واستجابة للأعطال الحرجة خلال 4 ساعات</li>
-        </ul>
-        <div class="excl"><b>لا يشمل:</b> الميزات الجديدة الكبيرة (تُسعَّر بعرض مستقل)، وكلفة رسائل رمز التحقق SMS (تُحتسب بالكلفة الفعلية)، واستخدام خرائط Google إذا تجاوز الحصة المجانية.</div>
+        <p>يبدأ احتسابه من تاريخ الإطلاق على المتجرين، ويُدفع مقدماً عن كل سنة.</p>
+        <table class="sub-table">
+          <tbody>
+            <tr><th>تجديد عضوية Apple Developer<small>رسوم Apple السنوية لإبقاء التطبيق منشوراً على App Store</small></th><td class="amt">$99</td></tr>
+            <tr><th>الدعم الفني<small>استقبال بلاغات الأعطال في أوقات العمل، وإصلاح الأخطاء في الوظائف المتفق عليها، ومتابعة تشغيل الخادم وتطبيق تحديثاته الأمنية. لا يشمل تعديلات أو ميزات جديدة.</small></th><td class="amt">$50</td></tr>
+            <tr><th>استضافة VPS — DigitalOcean<small>Basic (Regular): 4 vCPU، 8 GiB RAM، 160 GiB SSD، فرانكفورت FRA1. بدون نسخ احتياطي.</small></th><td class="amt">$576<small>$48 × 12</small></td></tr>
+            <tr class="sum"><th>إجمالي الاشتراك السنوي</th><td class="amt">$725</td></tr>
+          </tbody>
+        </table>
+        <div class="excl">أسعار Apple وDigitalOcean يحددها المزوّدان وقد تتغير، ولا تشمل أي ضرائب قد يفرضها المزوّد حسب بلد الفوترة.</div>
       </div>
     </div>
 
+    <h3 style="margin-top:40px">ما هو داخل الاشتراك وما هو خارجه</h3>
+    <div class="tbl-scroll">
+      <table class="status">
+        <thead><tr><th>البند</th><th>الوضع</th><th>التفاصيل</th></tr></thead>
+        <tbody>
+          <tr><td>النسخ الاحتياطي اليومي</td><td><span class="pill opt">اختياري · برسوم إضافية</span></td><td>من DigitalOcean بنسبة 30% من سعر الخادم: $14.40 شهرياً ($172.80 سنوياً). النسخ الأسبوعي 20%: $9.60 شهرياً ($115.20 سنوياً). نوصي بتفعيل النسخ اليومي.</td></tr>
+          <tr><td>النطاق (Domain)</td><td><span class="pill out">غير مشمول</span></td><td>يُسجَّل باسم الجهة المستفيدة، وتتحدد كلفته حسب الامتداد وجهة التسجيل.</td></tr>
+          <tr><td>شهادة SSL</td><td><span class="pill in">بدون رسوم</span></td><td>شهادة Let's Encrypt المجانية، تُثبَّت وتُجدَّد تلقائياً على الخادم.</td></tr>
+          <tr><td>حساب Google Play</td><td><span class="pill in">لا رسوم سنوية</span></td><td>الحساب قائم ورسوم تسجيله تُدفع مرة واحدة فقط.</td></tr>
+          <tr><td>رمز التحقق OTP</td><td><span class="pill out">غير متوفر حالياً</span></td><td>طريقة تسجيل الدخول قيد الحسم. عند اعتماد OTP يُتعاقد مع مزوّد، وتُحتسب كلفة الربط والرسائل بشكل مستقل.</td></tr>
+          <tr><td>خرائط Google</td><td><span class="pill out">غير مشمول</span></td><td>تُحتسب حسب الاستخدام وفق تسعير Google إن تجاوز الاستخدام الحصة المجانية.</td></tr>
+          <tr><td>تعديلات وميزات جديدة</td><td><span class="pill out">غير مشمول</span></td><td>تُسعَّر عند طلبها باتفاق مكتوب.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
     <div class="grid g3" style="margin-top:24px">
-      <div class="meter"><span class="lbl">Year 1 total</span><div class="val">$12,200</div></div>
-      <div class="meter"><span class="lbl">Year 2 onward</span><div class="val">$2,400<small>/YR</small></div></div>
+      <div class="meter"><span class="lbl">Year 1 · $4,000 + $725</span><div class="val">$4,725</div></div>
+      <div class="meter"><span class="lbl">Year 2 onward</span><div class="val">$725<small>/YR</small></div></div>
       <div class="meter"><span class="lbl">Warranty</span><div class="val">90<small>DAYS</small></div></div>
     </div>
-    <p class="note">يتضمن العرض ضماناً مجانياً لمدة 90 يوماً بعد الإطلاق على أي خلل في الوظائف المتفق عليها، بالإضافة إلى ما يغطيه الاشتراك السنوي.</p>
+    <p class="note">يتضمن العرض ضماناً لمدة 90 يوماً بعد الإطلاق على أي خلل في الوظائف المتفق عليها. المجاميع أعلاه لا تشمل النسخ الاحتياطي الاختياري.</p>
   </div>
 </section>
 
@@ -615,18 +664,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">10 · شروط الدفع والتسليم</span>
-      <h2>ثلاث دفعات مرتبطة بمراحل واضحة</h2>
+      <h2>ثلاث دفعات للتطوير مرتبطة بمراحل واضحة</h2>
+      <p>هذه الدفعات تخص كلفة التطوير ($4,000) فقط. الاشتراك السنوي بند منفصل.</p>
     </div>
     <div class="pay-split" aria-label="جدول دفعات كلفة التطوير">
-      <div><small>عند توقيع العقد</small><b>40% · $3,920</b></div>
-      <div><small>عند تسليم النسخة التجريبية</small><b>30% · $2,940</b></div>
-      <div><small>عند الإطلاق على المتجرين</small><b>30% · $2,940</b></div>
+      <div><small>عند توقيع العقد</small><b>40% · $1,600</b></div>
+      <div><small>عند تسليم النسخة التجريبية</small><b>30% · $1,200</b></div>
+      <div><small>عند الإطلاق على المتجرين</small><b>30% · $1,200</b></div>
     </div>
     <div class="grid g2" style="margin-top:28px">
       <div class="card">
         <h3>الشروط العامة</h3>
         <ol class="terms">
-          <li>يُدفع الاشتراك السنوي الأول مع الدفعة الأخيرة، ثم يتجدد سنوياً.</li>
+          <li>يبدأ احتساب الاشتراك السنوي ($725) من تاريخ الإطلاق على المتجرين، وتُستحق السنة الأولى مقدماً في ذلك التاريخ مع دفعة التطوير الأخيرة، ثم يُستحق التجديد في التاريخ نفسه من كل سنة.</li>
           <li>يُنشر التطبيق مبدئياً عبر حسابات المطوّر على Google Play وApp Store، ويمكن نقله إلى حساب باسم الجهة المستفيدة متى طلبت ذلك.</li>
           <li>يُسلَّم الكود المصدري بعد سداد كلفة التطوير كاملة.</li>
           <li>أي تعديل يغيّر نطاق العمل المتفق عليه يُسعَّر ويُجدول باتفاق مكتوب.</li>
@@ -642,7 +692,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <li>أرقام الهاتف وبيانات السائقين والمركبات</li>
           <li>شخص مسؤول للتواصل واعتماد مراحل العمل</li>
           <li>سياسة الخصوصية وشروط الاستخدام، أو الموافقة على نموذج نعدّه</li>
-          <li>محطة متنقلة وسائق متاحان خلال أسبوعَي الاختبار الميداني</li>
+          <li>محطة متنقلة وسائق متاحان خلال فترة الاختبار الميداني (نصف شهر)</li>
         </ul>
       </div>
     </div>
