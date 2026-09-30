@@ -6,6 +6,6 @@
 - لوحة تحكم ويب للإدارة (Laravel + Filament) للموافقة على الطلبات وإسنادها للسائقين
 - خادم مخصص، ونسخ احتياطي يومي، واشتراك سنوي للصيانة والاستضافة
 
-🔗 **رابط العرض:** https://yasameencode.github.io/bozerji-proposal/
+🔗 **رابط العرض:** https://yk-code-studio.github.io/bozerji-proposal/
 
 > لطباعة العرض أو حفظه PDF استخدم زر «طباعة / PDF» أعلى الصفحة.
